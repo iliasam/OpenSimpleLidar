@@ -1,0 +1,46 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[StLinkDriver]
+CStepIntDis=_ 0
+stlinkserialNo=USB0
+stlinkfoundProbes=
+[DebugChecksum]
+Checksum=1918441473
+[Exceptions]
+StopOnUncaught=_ 0
+StopOnThrow=_ 0
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[CallStackLog]
+Enabled=0
+[CallStackStripe]
+ShowTiming=1
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Count=0
+[Aliases]
+A0=_ "D:\MYPROGS\LIDAR\NUMBER4\code\test1\main.c" ""
+A1=_ "D:\MYPROGS\LIDAR\NUMBER4\code\test1\startup_stm32f030.s" ""
+A2=_ "D:\MYPROGS\LIDAR\NUMBER4\code\test1\stm32f0xx_it.c" "D:\MYPROGS\LIDAR\NUMBER4\code\test1_capture_image\stm32f0xx_it.c"
+A3=_ "D:\MYPROGS\LIDAR\NUMBER4\code\test1\system_stm32f0xx.c" ""
+A4=_ "D:\MYPROGS\LIDAR\NUMBER4\code\test1\uart_handler.c" ""
+Count=5
+SuppressDialog=1

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>999281185</fileChecksum>
+  <configuration>
+    <name>STM32F030</name>
+    <outputs>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_it.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_flash.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_it.o</file>
+      <file>$PROJ_DIR$\Output\Obj\init_periph.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_exti.pbi</file>
+      <file>$PROJ_DIR$\..\system_stm32f0xx.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_adc.c</file>
+      <file>$PROJ_DIR$\..\startup_stm32f030.s</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_dbgmcu.c</file>
+      <file>$PROJ_DIR$\..\main.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_syscfg.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_gpio.c</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_adc.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_tim.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_misc.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_misc.o</file>
+      <file>$PROJ_DIR$\..\stm32f0xx_it.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_flash.c</file>
+      <file>$PROJ_DIR$\..\uart_handler.c</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_usart.pbi</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_iwdg.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_pwr.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_exti.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_dma.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_rcc.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_usart.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_misc.c</file>
+      <file>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_tim.c</file>
+      <file>$PROJ_DIR$\..\init_periph.c</file>
+      <file>$PROJ_DIR$\Output\Obj\init_periph.o</file>
+      <file>$PROJ_DIR$\Output\Obj\uart_handler.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_syscfg.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_tim.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_adc.o</file>
+      <file>$PROJ_DIR$\Output\Exe\STM32F0XX_LD.hex</file>
+      <file>$PROJ_DIR$\Output\Obj\main.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_rcc.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_rcc.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_flash.o</file>
+      <file>$PROJ_DIR$\Output\Obj\system_stm32f0xx.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_iwdg.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\uart_handler.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_syscfg.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_dma.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_iwdg.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_pwr.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_dbgmcu.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\system_stm32f0xx.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_gpio.pbi</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_dbgmcu.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_dma.pbi</file>
+      <file>$PROJ_DIR$\Output\Exe\Project.out</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_exti.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_gpio.o</file>
+      <file>$PROJ_DIR$\Output\Obj\Project.pbd</file>
+      <file>$PROJ_DIR$\Output\Obj\startup_stm32f030.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_usart.o</file>
+      <file>$PROJ_DIR$\Output\Obj\stm32f0xx_pwr.pbi</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 52</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\system_stm32f0xx.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 39</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 48</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_adc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 12</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 33</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\startup_stm32f030.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 56</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_dbgmcu.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 50</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 35</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_syscfg.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_gpio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\stm32f0xx_it.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 2</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_flash.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\uart_handler.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 30</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_iwdg.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_pwr.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 58</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 46</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_exti.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_dma.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 51</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 44</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_rcc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_usart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_misc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 15</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\StdPeriphLib\src\stm32f0xx_tim.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 32</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\init_periph.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 29</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Output\Exe\Project.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+    </file>
+  </configuration>
+</project>
+
+

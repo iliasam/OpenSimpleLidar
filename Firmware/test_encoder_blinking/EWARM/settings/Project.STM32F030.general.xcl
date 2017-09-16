@@ -1,0 +1,15 @@
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armproc.dll" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armstlink2.dll" 
+
+"D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Exe\Project.out" 
+
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armbat.dll" 
+
+--device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\config\debugger\ST\STM32F05xxx_06xxx.dmac" 
+
+--flash_loader "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\config\flashloader\ST\FlashSTM32F03xx4.board" 
+
+
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\Project.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>BUILD_ALL</name>
+      <member>
+        <project>Project</project>
+        <configuration>STM32F031</configuration>
+      </member>
+      <member>
+        <project>Project</project>
+        <configuration>STM32F051</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+
