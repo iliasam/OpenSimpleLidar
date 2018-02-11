@@ -1,0 +1,272 @@
+###############################################################################
+#
+# IAR ELF Linker V7.50.2.10312/W32 for ARM                10/Feb/2018  21:58:00
+# Copyright 2007-2015 IAR Systems AB.
+#
+#    Output file  =  
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Exe\Project.out
+#    Map file     =  
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\List\Project.map
+#    Command line =  
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\init_periph.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\main.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\startup_stm32f030.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_adc.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_dbgmcu.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_dma.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_exti.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_flash.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_gpio.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_it.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_iwdg.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_misc.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_pwr.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_rcc.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_syscfg.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_tim.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\stm32f0xx_usart.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\system_stm32f0xx.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj\uart_handler.o
+#        --redirect _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Exe\Project.out
+#        --map
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\List\Project.map
+#        --config
+#        D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\stm32f030F4P6.icf
+#        --semihosting --entry __iar_program_start --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x08000000 { ro section .intvec };
+"P1":  place in [from 0x08000000 to 0x08003fff] { ro };
+"P2":  place in [from 0x20000000 to 0x20000fff] { rw, block CSTACK, block HEAP };
+
+  Section            Kind        Address   Size  Object
+  -------            ----        -------   ----  ------
+"A1":                                      0xb4
+  .intvec            ro code  0x08000000   0xb4  startup_stm32f030.o [1]
+                            - 0x080000b4   0xb4
+
+"P1":                                     0x8ce
+  .text              ro code  0x080000b4  0x2d0  stm32f0xx_rcc.o [1]
+  .text              ro code  0x08000384   0xae  I32DivModFast.o [4]
+  .text              ro code  0x08000432    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000434    0x2  IntDivZer.o [4]
+  .text              ro code  0x08000436    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000438  0x154  init_periph.o [1]
+  .text              ro code  0x0800058c   0x2c  stm32f0xx_flash.o [1]
+  .text              ro code  0x080005b8   0xb0  stm32f0xx_gpio.o [1]
+  .text              ro code  0x08000668   0xf0  system_stm32f0xx.o [1]
+  .text              ro code  0x08000758   0x5c  stm32f0xx_it.o [1]
+  .text              ro code  0x080007b4   0x54  stm32f0xx_dma.o [1]
+  .text              ro code  0x08000808    0x4  stm32f0xx_tim.o [1]
+  .text              ro code  0x0800080c   0x40  main.o [1]
+  .text              ro code  0x0800084c   0x3c  startup_stm32f030.o [1]
+  .text              ro code  0x08000888   0x30  copy_init3.o [4]
+  .text              ro code  0x080008b8   0x28  data_init.o [4]
+  .iar.init_table    const    0x080008e0   0x14  - Linker created -
+  .text              ro code  0x080008f4   0x1a  cmain.o [4]
+  .text              ro code  0x0800090e    0x4  low_level_init.o [3]
+  .text              ro code  0x08000912    0x8  exit.o [3]
+  .text              ro code  0x0800091a    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800091c    0xa  cexit.o [4]
+  .text              ro code  0x08000926    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000928   0x14  exit.o [5]
+  Initializer bytes  const    0x0800093c   0x14  <for P2-1>
+  .text              ro code  0x08000950    0xc  cstartup_M.o [4]
+  .text              ro code  0x0800095c    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800095e    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000960    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000962    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000964    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000966    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000968    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800096a    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800096c    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800096e    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000970    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000972    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000974    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000976    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000978    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800097a    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800097c    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800097e    0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000980    0x2  startup_stm32f030.o [1]
+  .rodata            const    0x08000982    0x0  copy_init3.o [4]
+                            - 0x08000982  0x8ce
+
+"P2", part 1 of 2:                         0x14
+  P2-1                        0x20000000   0x11  <Init block>
+    .data            inited   0x20000000   0x10  stm32f0xx_rcc.o [1]
+    .bss             inited   0x20000010    0x1  stm32f0xx_it.o [1]
+                            - 0x20000011   0x11
+
+"P2", part 2 of 2:                        0x400
+  CSTACK                      0x20000018  0x400  <Block>
+    CSTACK           uninit   0x20000018  0x400  <Block tail>
+                            - 0x20000418  0x400
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Copy (__iar_copy_init3)
+    1 source range, total size 0x14 (117% of destination):
+          0x0800093c  0x14
+    1 destination range, total size 0x11:
+          0x20000000  0x11
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module               ro code  ro data  rw data
+    ------               -------  -------  -------
+D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj: [1]
+    init_periph.o            340
+    main.o                    64
+    startup_stm32f030.o      286
+    stm32f0xx_dma.o           84
+    stm32f0xx_flash.o         44
+    stm32f0xx_gpio.o         176
+    stm32f0xx_it.o            92        1        1
+    stm32f0xx_rcc.o          720       16       16
+    stm32f0xx_tim.o            4
+    system_stm32f0xx.o       240
+    ----------------------------------------------
+    Total:                 2 050       17       17
+
+command line: [2]
+    ----------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    exit.o                     8
+    low_level_init.o           4
+    ----------------------------------------------
+    Total:                    12
+
+rt6M_tl.a: [4]
+    I32DivModFast.o          174
+    IntDivZer.o                2
+    cexit.o                   10
+    cmain.o                   26
+    copy_init3.o              48
+    cstartup_M.o              12
+    data_init.o               40
+    ----------------------------------------------
+    Total:                   312
+
+shb_l.a: [5]
+    exit.o                    20
+    ----------------------------------------------
+    Total:                    20
+
+    Linker created                     23    1 024
+--------------------------------------------------
+    Grand Total:           2 394       40    1 041
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.iar.init_table$$Base   0x080008e0          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x080008f4          --   Gb  - Linker created -
+?main                   0x080008f5         Code  Gb  cmain.o [4]
+APBAHBPrescTable        0x20000000   0x10  Data  Lc  stm32f0xx_rcc.o [1]
+CSTACK$$Base            0x20000018          --   Gb  - Linker created -
+CSTACK$$Limit           0x20000418          --   Gb  - Linker created -
+DMA1_Channel1_IRQHandler
+                        0x08000763   0x42  Code  Gb  stm32f0xx_it.o [1]
+DMA_ClearITPendingBit   0x080007e3    0x2  Code  Gb  stm32f0xx_dma.o [1]
+DMA_Cmd                 0x080007b5   0x14  Code  Gb  stm32f0xx_dma.o [1]
+DMA_GetITStatus         0x080007c9    0x2  Code  Gb  stm32f0xx_dma.o [1]
+FLASH_PrefetchBufferCmd
+                        0x0800059b   0x18  Code  Gb  stm32f0xx_flash.o [1]
+FLASH_SetLatency        0x0800058d    0xe  Code  Gb  stm32f0xx_flash.o [1]
+GPIO_Init               0x080005b9   0x6a  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_PinAFConfig        0x08000649   0x20  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_ReadInputDataBit   0x08000639    0x8  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_StructInit         0x08000623   0x12  Code  Gb  stm32f0xx_gpio.o [1]
+HardFault_Handler       0x0800075b    0x2  Code  Gb  stm32f0xx_it.o [1]
+NMI_Handler             0x08000759    0x2  Code  Gb  stm32f0xx_it.o [1]
+PendSV_Handler          0x0800075f    0x2  Code  Gb  stm32f0xx_it.o [1]
+RCC_AHBPeriphClockCmd   0x0800030d   0x14  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_APB2PeriphClockCmd  0x08000321   0x14  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_DeInit              0x080000b5   0x48  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_GetClocksFreq       0x080001b5  0x14a  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_GetFlagStatus       0x08000339   0x2a  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_GetSYSCLKSource     0x08000177    0xa  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_HCLKConfig          0x08000181    0xa  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_HSEConfig           0x080000fd    0xa  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_PCLKConfig          0x0800018b    0xe  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_PLLCmd              0x08000155   0x18  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_PLLConfig           0x0800013f   0x16  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_SYSCLKConfig        0x0800016d    0xa  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_WaitForHSEStartUp   0x08000107   0x32  Code  Gb  stm32f0xx_rcc.o [1]
+Region$$Table$$Base     0x080008e0          --   Gb  - Linker created -
+Region$$Table$$Limit    0x080008f4          --   Gb  - Linker created -
+SVC_Handler             0x0800075d    0x2  Code  Gb  stm32f0xx_it.o [1]
+SysTick_Handler         0x08000761    0x2  Code  Gb  stm32f0xx_it.o [1]
+SystemInit              0x08000669   0xd0  Code  Gb  system_stm32f0xx.o [1]
+TIM_SetCounter          0x08000809    0x4  Code  Gb  stm32f0xx_tim.o [1]
+__ICFEDIT_region_RAM_end__ {Abs}
+                        0x20000fff          --   Gb  command line/config [2]
+__ICFEDIT_region_RAM_start__ {Abs}
+                        0x20000000          --   Gb  command line/config [2]
+__aeabi_idiv0           0x08000435         Code  Gb  IntDivZer.o [4]
+__aeabi_uidiv           0x08000385         Code  Gb  I32DivModFast.o [4]
+__aeabi_uidivmod        0x08000385         Code  Gb  I32DivModFast.o [4]
+__cmain                 0x080008f5         Code  Gb  cmain.o [4]
+__exit                  0x08000929   0x14  Code  Gb  exit.o [5]
+__iar_copy_init3        0x08000889   0x30  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x080008b9   0x28  Code  Gb  data_init.o [4]
+__iar_program_start     0x08000951         Code  Gb  cstartup_M.o [4]
+__low_level_init        0x0800090f    0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x08000000         Data  Gb  startup_stm32f030.o [1]
+_call_main              0x08000901         Code  Gb  cmain.o [4]
+_exit                   0x0800091d         Code  Gb  cexit.o [4]
+_main                   0x0800090b         Code  Gb  cmain.o [4]
+capture_done_flag       0x20000010    0x1  Data  Gb  stm32f0xx_it.o [1]
+exit                    0x08000913    0x8  Code  Gb  exit.o [3]
+init_all_periph         0x08000439   0x14  Code  Gb  init_periph.o [1]
+init_clk                0x0800044d   0x62  Code  Gb  init_periph.o [1]
+init_clk_pin            0x08000541   0x2a  Code  Gb  init_periph.o [1]
+init_gpio               0x080004af   0x92  Code  Gb  init_periph.o [1]
+main                    0x0800080d   0x40  Code  Gb  main.o [1]
+switch_led              0x0800056b   0x16  Code  Gb  init_periph.o [1]
+
+
+[1] = D:\GITHUB\OpenSimpleLidar\Firmware\test_encoder_blinking\EWARM\Output\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+[5] = shb_l.a
+
+  2 394 bytes of readonly  code memory
+     40 bytes of readonly  data memory
+  1 041 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

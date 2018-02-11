@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=USB0
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=1050706370
+Checksum=-643422430
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -35,7 +35,8 @@ ShowTiming=1
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Count=0
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\main.c}.33.7" 0 0 1 "" 0 "" 0
+Count=1
 [Aliases]
 Count=0
 SuppressDialog=0

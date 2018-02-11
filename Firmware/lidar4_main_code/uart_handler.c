@@ -11,6 +11,12 @@ extern volatile uint8_t overspeed_flag;
 
 #define PACKET_LENGTH_IN_BYTES (uint16_t)(PACKET_LENGTH*2)
 
+//0 bit - overspeed flag
+#define STATUS_WORD_OVERSPEED_MASK     (1<<0)
+
+//15 bit - shows that this is lidar 4
+#define STATUS_WORD_LIDAR4_MASK        (1<<15)
+
 //LSB is transmetted first
 //This function found the bufeer to take data and starts transmission
 //360 data + 2 header + 1 status flags + 1 speed
@@ -28,7 +34,9 @@ void start_send_result(void)
   
   uint16_t tmp_status_value = 0;
   if (overspeed_flag != 0) 
-    tmp_status_value+=(1<<0);//0bit - overspeed flag
+    tmp_status_value|= STATUS_WORD_OVERSPEED_MASK;
+  
+  tmp_status_value|= STATUS_WORD_LIDAR4_MASK;
   
   //если сейчас заполняется один буфер, то начинаем передавать другой
   if (res_buf_num == 0)

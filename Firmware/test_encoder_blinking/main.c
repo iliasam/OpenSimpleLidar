@@ -19,6 +19,7 @@ int main(void)
 {
   init_all_periph();
   
+  switch_led(1);
   
   while (1)
   {

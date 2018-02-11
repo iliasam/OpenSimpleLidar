@@ -41,7 +41,7 @@
 #define CAPTURED_POINTS_CNT     128
 
 #define TWO_DEG_MODE    //measurement every 2 deg - 180 points per rotation
-//This hepls to increase speed twice
+//This helps to increase speed twice
 
 
 //Length of packet in halfwords (2 bytes)
