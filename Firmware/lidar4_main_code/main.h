@@ -37,7 +37,7 @@
 #include "uart_handler.h"
 #include "init_periph.h"
 
-
+//Number of the pixels in TSL1401
 #define CAPTURED_POINTS_CNT     128
 
 #define TWO_DEG_MODE    //measurement every 2 deg - 180 points per rotation

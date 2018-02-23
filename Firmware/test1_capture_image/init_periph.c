@@ -64,7 +64,6 @@ void init_gpio(void)
   GPIO_InitTypeDef  GPIO_InitStructure;
   
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB, ENABLE );
-  //внмание - включается переназначение выводов
     
   GPIO_StructInit(&GPIO_InitStructure);
   GPIO_InitStructure.GPIO_Pin = SI_PIN;
@@ -115,9 +114,6 @@ void init_clk_pin(ClkPinType pin_type)
 }
 
 
-
-
-
 //Initialize TIM1 - used to generate CLK pulses and used as ADC trigger
 void timer1_init(void)
 {
@@ -126,8 +122,8 @@ void timer1_init(void)
   
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
   
-  //This timer used as trigger for ADC
-  // TIM1 configuration
+  //This timer is used as a trigger for ADC
+  //TIM1 configuration
   TIM_DeInit(TIM1);
   TIM_OCStructInit(&TIM_OCInitStructure);
   TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
@@ -192,7 +188,7 @@ void init_adc(void)
   ADC_GetCalibrationFactor(ADC1);
   
   ADC_DMARequestModeConfig(ADC1, ADC_DMAMode_OneShot);
-  ADC_DMACmd(ADC1, ENABLE);//adc создает события для DMA
+  ADC_DMACmd(ADC1, ENABLE);//adc generate events for DMA
   
   /// Enable ADC1
   ADC_Cmd(ADC1, ENABLE);
@@ -202,7 +198,7 @@ void init_adc(void)
 }
 
 
-//копирует данные от ацп в память
+//DAC is used to copy data from ADC to RAM
 void adc_dma_init(void)
 {
   DMA_InitTypeDef           DMA_InitStructure;
@@ -246,9 +242,7 @@ void dma_config(uint16_t* pointer)
 
 //Start image capture
 void capture_start(uint16_t* pointer)
-{
-  //tx_status = TRANSFER;
-  
+{ 
   init_clk_pin(CLK_GPIO);
   GPIO_SetBits(SI_PORT, SI_PIN);
   small_delay();
@@ -355,32 +349,6 @@ void uart_dma_init(void)
   DMA_Init(UART_TX_DMA_CHANNEL, &DMA_InitStructure); 
   //DMA_Cmd(UART_TX_DMA_CHANNEL, ENABLE);
 }
-
-
-/*
-//настройка внешних прерываний
-void ext_int_init(void)
-{
-  EXTI_InitTypeDef EXTI_InitStructure;
-  NVIC_InitTypeDef NVIC_InitStructure;
-    
-  GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource3);
-  
-  EXTI_ClearITPendingBit(EXTI_Line3);
-  EXTI_InitStructure.EXTI_Line = EXTI_Line3;
-  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
-  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  EXTI_Init(&EXTI_InitStructure);
-  
-  NVIC_InitStructure.NVIC_IRQChannel =  EXTI3_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-
-  NVIC_Init(&NVIC_InitStructure);
-}
-*/
 
 void Delay_ms(uint32_t ms)
 {

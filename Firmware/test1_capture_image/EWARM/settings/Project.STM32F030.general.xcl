@@ -2,7 +2,7 @@
 
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armstlink2.dll" 
 
-"D:\MYPROGS\LIDAR\NUMBER4\code\test1_capture_image\EWARM\Output\Exe\Project.out" 
+"D:\GITHUB\OpenSimpleLidar\Firmware\test1_capture_image\EWARM\Output\Exe\Project.out" 
 
 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armbat.dll" 
 

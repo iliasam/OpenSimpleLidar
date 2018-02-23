@@ -11,10 +11,6 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-void uart1_send_byte(uint8_t c);
-
 uint16_t data_adc_laser[CAPTURED_POINTS_CNT];
 uint16_t data_adc_off[CAPTURED_POINTS_CNT];
 
@@ -23,8 +19,11 @@ volatile uint16_t* data_adc_off_p   = &data_adc_off[0];//pointer to data with la
 
 extern volatile uint8_t capture_done_flag;
 
-
+/* Private function prototypes -----------------------------------------------*/
+void uart1_send_byte(uint8_t c);
 void uart_send_captured_data(void);
+
+/* Private functions ---------------------------------------------------------*/
 
 int main(void)
 {
@@ -33,8 +32,6 @@ int main(void)
   enable_laser();
   
   //TIM1->CR1 |= TIM_CR1_CEN;//Start TIM1 -> ADC -> DMA -> RAM
-  
-  
   
   while (1)
   {
@@ -79,22 +76,25 @@ void uart_send_captured_data(void)
 {
   uint8_t i;
   
-  uart1_send_byte(65);
-  uart1_send_byte(98);
-  uart1_send_byte(67);
-  uart1_send_byte(100);
-  uart1_send_byte(69);
-  uart1_send_byte(102);
+  uart1_send_byte(0x41);//65 dec  - 'A'
+  uart1_send_byte(0x62);//98 dec  - 'b'
+  uart1_send_byte(0x43);//67 dec  - 'C'
+  uart1_send_byte(0x64);//100 dec - 'd'
+  uart1_send_byte(0x45);//69 dec  - 'E'
+  uart1_send_byte(0x66);//102 dec - 'f'
   
   
   for (i=0; i<CAPTURED_POINTS_CNT; i++)
   {
-    if (data_adc_laser[i] > data_adc_off[i]) {data_adc_laser[i] = data_adc_laser[i] - data_adc_off[i];} else {data_adc_laser[i] = 0;}
+    if (data_adc_laser[i] > data_adc_off[i]) 
+		data_adc_laser[i] = data_adc_laser[i] - data_adc_off[i];
+	else 
+		data_adc_laser[i] = 0;
     data_adc_laser[i] = data_adc_laser[i];
     //data_adc_off[i] = 10+i;
   }
   
   
   uart_tx_dma_config(data_adc_laser, CAPTURED_POINTS_CNT);
-  Delay_ms(40);//время на передачу
+  Delay_ms(40);//Time for data transmission
 }
