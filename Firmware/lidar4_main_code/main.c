@@ -22,7 +22,7 @@ int main(void)
   {
      process_handler();
     //start_send_result();
-    //Delay_ms(200);
+    //delay_ms(200);
   }
 }
 

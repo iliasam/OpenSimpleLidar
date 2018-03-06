@@ -6,6 +6,20 @@ DMA_InitTypeDef           DMA_InitStructure;
 
 extern volatile uint16_t data_adc_laser0[CAPTURED_POINTS_CNT];
 
+void init_clk(void);
+void init_gpio(void);
+void init_spi(void);
+void init_adc(void);
+void timer1_init(void);
+void init_uart1(void);
+void adc_dma_init(void);
+void uart_dma_init(void);
+void small_delay(void);
+void init_clk_pin(ClkPinType pin_type);
+void adc_dma_config(uint16_t* pointer);
+
+//*****************************************************************************
+
 void init_all_periph(void)
 {
  
@@ -75,7 +89,7 @@ void init_gpio(void)
   init_clk_pin(CLK_GPIO);
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_2);//TIM1
   
-  //Adc
+  //ADC
   GPIO_InitStructure.GPIO_Pin   = ADC_PIN;
   GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AN;
   GPIO_Init(ADC_PORT, &GPIO_InitStructure);
@@ -192,7 +206,7 @@ void init_adc(void)
   ADC_StartOfConversion(ADC1);
 }
 
-//Copy data from ADC to RAM
+//DMA is used to copy data from ADC to RAM
 void adc_dma_init(void)
 {
   DMA_InitTypeDef           DMA_InitStructure;
@@ -226,6 +240,7 @@ void adc_dma_init(void)
 
 
 //Configure DMA for new capture
+//pointer - pointer to RAM to store ADC data
 void adc_dma_config(uint16_t* pointer)
 { 
    DMA_Cmd(DMA1_Channel1, DISABLE);
@@ -347,7 +362,7 @@ void uart_dma_init(void)
   //DMA_Cmd(UART_TX_DMA_CHANNEL, ENABLE);
 }
 
-void Delay_ms(uint32_t ms)
+void delay_ms(uint32_t ms)
 {
   volatile uint32_t nCount;
   RCC_ClocksTypeDef RCC_Clocks;

@@ -1,4 +1,4 @@
-#include "main.h"
+п»ї#include "main.h"
 #include "encoder_handler.h"
 #include "stdio.h"
 
@@ -13,25 +13,26 @@ volatile uint8_t overspeed_flag   = 0;//1 - speed is too high
 volatile uint8_t sync_failed_flag = 0;//1 - sync error - erron en counting encoder marks
 
 volatile uint16_t cap_number = 0;//Number of sampled points
-extern volatile meas_status_type meas_status;//статус захвата 3 изображений
+extern volatile meas_status_type meas_status;//Status of capture 3 images
 
-//TIM16 Compare interrupt - every 1 deg of ratation
-//uased for starting image capture
+//TIM16 Compare interrupt - every 1 deg of rotation
+//used for starting image capture
 void TIM16_IRQHandler(void)
 {
   if (TIM_GetITStatus(DEGREE_TIM_NAME, TIM_IT_CC1) != RESET)
   {
     TIM_ClearITPendingBit(ENC_TIM_NAME, TIM_IT_CC1);
-    DEGREE_TIM_NAME->SR &= ~TIM_SR_CC1IF;//Clear interupt flag/
+    DEGREE_TIM_NAME->SR &= ~TIM_SR_CC1IF;//Clear interrupt flag
     if (cap_number < 359)
     {
-      meas_status = PHASE_WAIT;//начать захват нового градуса (с нулевой фазы)
+	  //Start capturing new degree - from zero phase
+      meas_status = PHASE_WAIT;//РќР°С‡Р°С‚СЊ Р·Р°С…РІР°С‚ РЅРѕРІРѕРіРѕ РіСЂР°РґСѓСЃР° (СЃ РЅСѓР»РµРІРѕР№ С„Р°Р·С‹)
       cap_number++;
 #ifdef TWO_DEG_MODE
   cap_number++;
 #endif
       switch_adc_buf();
-      meas_handler(); //start capture
+      meas_handler(); //Start capture
     }
   }
 }
@@ -87,7 +88,7 @@ void TIM17_IRQHandler(void)
     
     if (check_zero_point(time_tmp) == 1)//Zero crossing
     {
-      //"enc_period" here is doubled because of encoder construnction
+      //"enc_period" here is doubled because of encoder construction
       enc_period = enc_period / 2;
       time_tmp = enc_period / ENC_ARC_DEG;
       
@@ -104,7 +105,9 @@ void TIM17_IRQHandler(void)
         switch_led(1);
       }
       else
+	  {
         //switch_led(0);
+	  }
       
       stop_capture();
       if (sync_failed_flag == 0)
@@ -126,7 +129,7 @@ void TIM17_IRQHandler(void)
   }
 }
 
-//This timer capturing events from encoder
+//This timer is capturing events from the encoder
 //Timer mode - input capture
 void init_encoder_timer(void)
 {
@@ -137,7 +140,7 @@ void init_encoder_timer(void)
   
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM17, ENABLE);
   
-    //Encoder
+  //Encoder
   GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_Pin   = ENCODER_PIN;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
@@ -177,7 +180,7 @@ void init_encoder_timer(void)
   TIM_Cmd(ENC_TIM_NAME, ENABLE);
 }
 
-//Used for generating interrupts every 1 degree of rotating
+//This timer is used for generating interrupts every 1 degree of rotating
 void init_degree_timer(void)
 {
   TIM_TimeBaseInitTypeDef       TIM_TimeBaseStructure;
@@ -216,8 +219,8 @@ void init_degree_timer(void)
   //Timer will be started later - in "refresh_degree_timer"
 }
 
-//если врем¤ в 1.5 раза превышает среднее - возвращает 1
-//среднний период вычисл¤етс¤ здесь же
+//Р•СЃР»Рё РІСЂРµРјСЏ РІ 1.5 СЂР°Р·Р° РїСЂРµРІС‹С€Р°РµС‚ СЃСЂРµРґРЅРµРµ - РІРѕР·РІСЂР°С‰Р°РµС‚ 1
+//Return 1 if "time" > 1.5 times bigger than average time (4 points).
 uint8_t check_zero_point(uint16_t time)
 {
   static uint16_t times[4];
@@ -238,8 +241,8 @@ uint8_t check_zero_point(uint16_t time)
 }
 
 
-//Stops degree timer and load a new value for 1 deg roatating
-//Called at zero crosing
+//Stops degree timer and load a new value to it - for 1 deg rotation
+//Called at zero crossing
 void refresh_degree_timer(uint16_t time)
 {
 
@@ -250,6 +253,7 @@ void refresh_degree_timer(uint16_t time)
   DEGREE_TIM_NAME->CR1|= TIM_CR1_CEN;//enable timer
 }
 
+//"period" - period in timer ticks
 void set_degree_timer_period(uint16_t period)
 {
 #ifdef TWO_DEG_MODE
