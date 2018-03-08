@@ -2,9 +2,10 @@
 //Testing code - blinking LED when encoder evert occurs
 //by ILIASAM
 
+//Main configuration values are placed at "main.h"
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 
 #include "init_periph.h"
 #include "uart_handler.h"
@@ -16,13 +17,15 @@ void uart_send_captured_data(void);
 
 int main(void)
 {
+  RCC_ClocksTypeDef RCC_Clocks;
+  RCC_GetClocksFreq (&RCC_Clocks);
+  SysTick_Config(RCC_Clocks.HCLK_Frequency / SYSTICK_FREQUENCY);
+  
   init_all_periph();
   
   while (1)
   {
      process_handler();
-    //start_send_result();
-    //delay_ms(200);
   }
 }
 

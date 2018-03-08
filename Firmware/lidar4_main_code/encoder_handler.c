@@ -1,11 +1,11 @@
-﻿#include "main.h"
+#include "main.h"
 #include "encoder_handler.h"
 #include "stdio.h"
 
 //Used for speed sensor
 volatile uint16_t capture_old = 0;
-volatile uint16_t capture_now = 0;
-volatile uint16_t time_tmp = 0;//Time of rotating for 1 deg
+volatile uint16_t capture_now = 0;//Captured time (in "ENC_TIM" ticks)
+volatile uint16_t time_tmp = 0;//Time of rotating for 1 deg (in "ENC_TIM" ticks)
 volatile uint8_t  rot_num  = 0;//Number of encoder events
 volatile uint16_t rot_period  = 0;//Disc rotation period (in ms)
 
@@ -40,7 +40,7 @@ void TIM16_IRQHandler(void)
 //TIM17 Input Capture interrupt - from encoder
 void TIM17_IRQHandler(void)
 {
-  volatile uint16_t enc_period;//Time between encoder events
+  volatile uint16_t enc_period;//Time between encoder events (in "ENC_TIM" ticks)
   volatile static uint16_t zero_old = 0;
   volatile static uint16_t zero_now = 0;
   
@@ -72,21 +72,18 @@ void TIM17_IRQHandler(void)
       overspeed_flag = 1;
     } 
 #endif
-    
-
     else 
     {   
       switch_led(0);
       overspeed_flag = 0;
     }
     
-    
-    time_tmp = enc_period / ENC_ARC_DEG;//time of rotation for 1 deg
+    time_tmp = enc_period / ENC_ARC_DEG;//time of the rotation for 1 deg
     
     rot_num++;
     cap_number = rot_num * ENC_ARC_DEG;
     
-    if (check_zero_point(time_tmp) == 1)//Zero crossing
+    if (check_zero_point(time_tmp) == 1)//Zero crossing detected
     {
       //"enc_period" here is doubled because of encoder construction
       enc_period = enc_period / 2;

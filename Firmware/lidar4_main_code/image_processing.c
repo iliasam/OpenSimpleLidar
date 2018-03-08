@@ -1,10 +1,14 @@
 #include "main.h"
 #include "image_processing.h"
 
-#define AN_WIDTH_HIGH 8 //половина ширины анализа пика
-#define AN_WIDTH_LOW 3 //половина ширины анализа пика
+//Half width of the peak
+#define AN_WIDTH_HIGH 8 //РїРѕР»РѕРІРёРЅР° С€РёСЂРёРЅС‹ Р°РЅР°Р»РёР·Р° РїРёРєР°
 
-//#define REFL_FILTER //защита от ложных отраженных сигналов
+//Half width of the peak
+#define AN_WIDTH_LOW 3 //РїРѕР»РѕРІРёРЅР° С€РёСЂРёРЅС‹ Р°РЅР°Р»РёР·Р° РїРёРєР°
+
+//Protection from reflected signals
+//#define REFL_FILTER //Р·Р°С‰РёС‚Р° РѕС‚ Р»РѕР¶РЅС‹С… РѕС‚СЂР°Р¶РµРЅРЅС‹С… СЃРёРіРЅР°Р»РѕРІ
 
 uint8_t AN_WIDTH = AN_WIDTH_HIGH;
 
@@ -22,29 +26,39 @@ centroid_result_type find_centroid(void)
   uint32_t summ2 = 0;
   uint32_t tmp_centroid = 0;
   
-  uint16_t proc_data[CAPTURED_POINTS_CNT];//массив обработки
-  uint16_t* proc_adc_laser_p;//указатель на данные с лазером
-  uint16_t* proc_adc_off_p;//указатель на данные без лазера
+  uint16_t proc_data[CAPTURED_POINTS_CNT];//Array for data processing
+  uint16_t* proc_adc_laser_p;//Pointer to the data with laser enabled
+  uint16_t* proc_adc_off_p;//Pointer to the data with laser disabled
+
+  uint16_t off_flag = 0;//2 РёР·РѕР±СЂР°Р¶РµРЅРёСЏ СЃ РІС‹РєР»СЋС‡РµРЅРЅС‹Рј Р»Р°Р·РµСЂРѕРј
   
+  centroid_result_type result = {0,0,0};
+  
+#ifdef REFL_FILTER
   int16_t delta1;
   int16_t delta2;
   uint8_t fmax_val = 0;
-  
   uint16_t val1 = 0;
   uint16_t val2 = 0;
-  
-  uint16_t off_flag = 0;//2 изображения с выключенным лазером
-  
-  centroid_result_type result = {0,0,0};
+#endif 
   
   proc_adc_laser_p = (uint16_t*)data_adc_laser_p;
   proc_adc_off_p   = (uint16_t*)data_adc_off_p;
     
-  for (i=0; i<128; i++)
+  for (i=0; i<CAPTURED_POINTS_CNT; i++)
   {
-    //вычитание одного изображения из другого
-    if (proc_adc_laser_p[i] > proc_adc_off_p[i]) {proc_data[i] = proc_adc_laser_p[i] - proc_adc_off_p[i];} else {proc_data[i] = 0;}
-    if (proc_data[i] > max_val) {max_val = proc_data[i]; max_pos = i;}//поиск максимума
+    //Subtract one image from another - РІС‹С‡РёС‚Р°РЅРёРµ РѕРґРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РёР· РґСЂСѓРіРѕРіРѕ
+    if (proc_adc_laser_p[i] > proc_adc_off_p[i]) 
+      proc_data[i] = proc_adc_laser_p[i] - proc_adc_off_p[i];
+    else 
+      proc_data[i] = 0;
+    
+    //Maximum detection - РїРѕРёСЃРє РјР°РєСЃРёРјСѓРјР°
+    if (proc_data[i] > max_val) 
+    {
+      max_val = proc_data[i];
+      max_pos = i;
+    }
     //if ((data_adc_off2[i] > proc_adc_off_p[i]) && ((data_adc_off2[i] - proc_adc_off_p[i]) > 100)) {off_flag = 1;}
   }
   
@@ -54,8 +68,11 @@ centroid_result_type find_centroid(void)
     AN_WIDTH = AN_WIDTH_HIGH;
     
 #ifndef REFL_FILTER
-    if (max_pos < AN_WIDTH) {max_pos = AN_WIDTH;}
-    if (max_pos > (127-AN_WIDTH)) {max_pos = (127-AN_WIDTH);}
+    if (max_pos < AN_WIDTH) 
+      max_pos = AN_WIDTH;
+    if (max_pos > (CAPTURED_POINTS_CNT-AN_WIDTH-1)) 
+      max_pos = (CAPTURED_POINTS_CNT-AN_WIDTH-1);
+    
     start_pos = max_pos - AN_WIDTH;
     stop_pos =  max_pos + AN_WIDTH;
 #endif
@@ -64,7 +81,7 @@ centroid_result_type find_centroid(void)
 
     if ((max_pos < AN_WIDTH) || (max_pos > (127-AN_WIDTH)))
     {
-      //невозможно запустить фильтр
+      //РЅРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РїСѓСЃС‚РёС‚СЊ С„РёР»СЊС‚СЂ
       if (max_pos < AN_WIDTH) {max_pos = AN_WIDTH;}
       if (max_pos > (127-AN_WIDTH)) {max_pos = (127-AN_WIDTH);}
       start_pos = max_pos - AN_WIDTH;
@@ -84,7 +101,7 @@ centroid_result_type find_centroid(void)
         
         if ((delta1 > 0) && (delta2 < 0) && (i != max_pos))
         {
-          //найден максимум
+          //РЅР°Р№РґРµРЅ РјР°РєСЃРёРјСѓРј
           if (fmax_val < proc_data[i]) {fmax_val = proc_data[i];}
         }
         
@@ -97,23 +114,24 @@ centroid_result_type find_centroid(void)
     
 #endif
     
-    //субпиксельный расчет максимума
-    for (i = start_pos;i<stop_pos;i++)
+    //Subpixel maximum calculation - СЃСѓР±РїРёРєСЃРµР»СЊРЅС‹Р№ СЂР°СЃС‡РµС‚ РјР°РєСЃРёРјСѓРјР°
+    for (i = start_pos; i < stop_pos; i++)
     {
       summ = summ + i * proc_data[i];
       summ2 = summ2 + proc_data[i];				
     }
     
     if (summ2 > 0) 
-      tmp_centroid = ((summ*100) / summ2);
+      tmp_centroid = ((summ * 100) / summ2);//Maximum positionis multiplied to 100
     
     /*
-    if (max_val < 50)  {tmp_centroid = 1;}//защита от слишком слабых сигналов
-    if (max_pos < 6)   {tmp_centroid = 2;}//защита от слишком слабых сигналов
-    if (max_pos > 126) {tmp_centroid = 3;}//защита от неправильного вычисления на близких расстояниях
+    if (max_val < 50)  {tmp_centroid = 1;}//Р·Р°С‰РёС‚Р° РѕС‚ СЃР»РёС€РєРѕРј СЃР»Р°Р±С‹С… СЃРёРіРЅР°Р»РѕРІ
+    if (max_pos < 6)   {tmp_centroid = 2;}//Р·Р°С‰РёС‚Р° РѕС‚ СЃР»РёС€РєРѕРј СЃР»Р°Р±С‹С… СЃРёРіРЅР°Р»РѕРІ
+    if (max_pos > 126) {tmp_centroid = 3;}//Р·Р°С‰РёС‚Р° РѕС‚ РЅРµРїСЂР°РІРёР»СЊРЅРѕРіРѕ РІС‹С‡РёСЃР»РµРЅРёСЏ РЅР° Р±Р»РёР·РєРёС… СЂР°СЃСЃС‚РѕСЏРЅРёСЏС…
     */
 
-    if (off_flag == 1) {tmp_centroid = tmp_centroid + 20000;}
+    if (off_flag == 1) 
+      tmp_centroid = tmp_centroid + 20000;
     
     result.max_val = max_val;
     result.centroid = tmp_centroid;

@@ -43,13 +43,14 @@
 #define TWO_DEG_MODE    //measurement every 2 deg - 180 points per rotation
 //This helps to increase speed twice
 
-
 //Length of packet in halfwords (2 bytes)
 //360 data + 2 header + 1 status flags + 1 speed
 #define PACKET_OFFSET (uint16_t)(2+1+1)
 #define PACKET_LENGTH (uint16_t)(360+PACKET_OFFSET)
 
 #define UART_BAUDRATE   115200
+
+#define SYSTICK_FREQUENCY       1000//Hz
 
 
 /* Exported types ------------------------------------------------------------*/
