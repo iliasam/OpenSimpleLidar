@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=USB0
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-520427186
+Checksum=-1147184637
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -21,6 +21,12 @@ StopOnThrow=_ 0
 ShowArgs=0
 [Disassembly]
 MixedMode=1
+[watch_formats]
+Fmt0={W}42:rot_num	3	0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -28,14 +34,10 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
 [CallStackLog]
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Count=0
-[Aliases]
-Count=0
-SuppressDialog=0

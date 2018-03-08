@@ -48,9 +48,24 @@
 #define PACKET_OFFSET (uint16_t)(2+1+1)
 #define PACKET_LENGTH (uint16_t)(360+PACKET_OFFSET)
 
-#define UART_BAUDRATE   115200
+#define ENC_NUM                 15     //Number of encoder marks (holes)
+
+#define UART_BAUDRATE           115200
 
 #define SYSTICK_FREQUENCY       1000//Hz
+    
+//Эмуляция энкодера для отладочных целей
+//#define ENABLE_ENCODER_EMULATION
+    
+#ifdef ENABLE_ENCODER_EMULATION
+    
+#define VIRTUAL_ROTATION_SPEED  4//Rotation per second
+#define VIRTUAL_ROTATION_PERIOD (1000 /  VIRTUAL_ROTATION_SPEED) //1000ms in one sec
+    
+//Perio of the emulated encoder
+#define VIRTUAL_ENCODER_PERIOD  (VIRTUAL_ROTATION_PERIOD / ENC_NUM)
+
+#endif
 
 
 /* Exported types ------------------------------------------------------------*/

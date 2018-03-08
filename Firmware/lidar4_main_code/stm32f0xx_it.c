@@ -30,7 +30,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_it.h"
 #include "stm32f0xx.h"
+#include "main.h"
 #include "laser_handler.h"
+#include "encoder_handler.h"
 
 /** @addtogroup Template_Project
   * @{
@@ -94,6 +96,17 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+#ifdef ENABLE_ENCODER_EMULATION
+  static uint16_t period_cnt = 0;
+  period_cnt++;
+  
+  if (period_cnt >= VIRTUAL_ENCODER_PERIOD)
+  {
+    period_cnt = 0;
+    emulated_encoder_timer_event();
+  }
+  
+#endif
 }
 
 /******************************************************************************/

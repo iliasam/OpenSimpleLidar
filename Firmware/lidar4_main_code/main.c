@@ -17,6 +17,7 @@ void uart_send_captured_data(void);
 
 int main(void)
 {
+  //Core frequency - 48MHz
   RCC_ClocksTypeDef RCC_Clocks;
   RCC_GetClocksFreq (&RCC_Clocks);
   SysTick_Config(RCC_Clocks.HCLK_Frequency / SYSTICK_FREQUENCY);

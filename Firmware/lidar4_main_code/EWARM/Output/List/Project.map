@@ -1,0 +1,441 @@
+###############################################################################
+#
+# IAR ELF Linker V7.50.2.10312/W32 for ARM                08/Mar/2018  20:00:39
+# Copyright 2007-2015 IAR Systems AB.
+#
+#    Output file  =  
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Exe\Project.out
+#    Map file     =  
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\List\Project.map
+#    Command line =  
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\encoder_handler.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\image_processing.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\init_periph.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\laser_handler.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\main.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\startup_stm32f030.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_adc.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_dbgmcu.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_dma.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_exti.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_flash.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_gpio.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_it.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_iwdg.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_misc.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_pwr.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_rcc.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_syscfg.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_tim.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\stm32f0xx_usart.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\system_stm32f0xx.o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj\uart_handler.o
+#        --redirect _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Exe\Project.out
+#        --map
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\List\Project.map
+#        --config
+#        D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\stm32f030F4P6.icf
+#        --entry __iar_program_start --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x08000000 { ro section .intvec };
+"P1":  place in [from 0x08000000 to 0x08003fff] { ro };
+"P2":  place in [from 0x20000000 to 0x20000fff] { rw, block CSTACK, block HEAP };
+
+  Section            Kind        Address    Size  Object
+  -------            ----        -------    ----  ------
+"A1":                                       0xb4
+  .intvec            ro code  0x08000000    0xb4  startup_stm32f030.o [1]
+                            - 0x080000b4    0xb4
+
+"P1":                                     0x25c8
+  .text              ro code  0x080000b4   0x67c  stm32f0xx_tim.o [1]
+  .text              ro code  0x08000730   0x514  stm32f0xx_rcc.o [1]
+  .text              ro code  0x08000c44    0xe0  I32DivModFast.o [4]
+  .text              ro code  0x08000d24     0x2  IntDivZer.o [4]
+  .text              ro code  0x08000d26     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08000d28   0x5b8  init_periph.o [1]
+  .text              ro code  0x080012e0   0x478  encoder_handler.o [1]
+  .text              ro code  0x08001758    0x3c  stm32f0xx_flash.o [1]
+  .text              ro code  0x08001794   0x200  system_stm32f0xx.o [1]
+  .text              ro code  0x08001994   0x122  stm32f0xx_gpio.o [1]
+  .text              ro code  0x08001ab6     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08001ab8   0x24c  stm32f0xx_dma.o [1]
+  .text              ro code  0x08001d04    0xe4  stm32f0xx_adc.o [1]
+  .text              ro code  0x08001de8   0x11c  stm32f0xx_usart.o [1]
+  .text              ro code  0x08001f04   0x150  laser_handler.o [1]
+  .text              ro code  0x08002054    0xec  uart_handler.o [1]
+  .text              ro code  0x08002140    0x74  stm32f0xx_misc.o [1]
+  .text              ro code  0x080021b4   0x15c  image_processing.o [1]
+  .text              ro code  0x08002310    0x50  ABImemset.o [4]
+  .text              ro code  0x08002360    0x5c  ABImemcpy.o [4]
+  .text              ro code  0x080023bc    0xec  main.o [1]
+  .text              ro code  0x080024a8    0x3c  startup_stm32f030.o [1]
+  .text              ro code  0x080024e4    0x3c  zero_init3.o [4]
+  .text              ro code  0x08002520    0x38  stm32f0xx_it.o [1]
+  .text              ro code  0x08002558    0x30  copy_init3.o [4]
+  Initializer bytes  const    0x08002588    0x30  <for P2-1>
+  .text              ro code  0x080025b8     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x080025bc    0x28  data_init.o [4]
+  .iar.init_table    const    0x080025e4    0x24  - Linker created -
+  .text              ro code  0x08002608    0x1a  cmain.o [4]
+  .text              ro code  0x08002622     0x4  low_level_init.o [3]
+  .text              ro code  0x08002626     0x8  exit.o [3]
+  .text              ro code  0x0800262e     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002630     0xa  cexit.o [4]
+  .text              ro code  0x0800263a     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800263c     0xc  XXexit.o [4]
+  .text              ro code  0x08002648     0xc  cstartup_M.o [4]
+  .rodata            const    0x08002654     0x8  image_processing.o [1]
+  .text              ro code  0x0800265c     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800265e     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002660     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002662     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002664     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002666     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002668     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800266a     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800266c     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800266e     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002670     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002672     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002674     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002676     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x08002678     0x2  startup_stm32f030.o [1]
+  .text              ro code  0x0800267a     0x2  startup_stm32f030.o [1]
+  .rodata            const    0x0800267c     0x0  zero_init3.o [4]
+  .rodata            const    0x0800267c     0x0  copy_init3.o [4]
+                            - 0x0800267c  0x25c8
+
+"P2", part 1 of 3:                          0x30
+  P2-1                        0x20000000    0x2d  <Init block>
+    .data            inited   0x20000000     0x4  laser_handler.o [1]
+    .data            inited   0x20000004     0x4  laser_handler.o [1]
+    .data            inited   0x20000008    0x10  stm32f0xx_rcc.o [1]
+    .data            inited   0x20000018     0x4  system_stm32f0xx.o [1]
+    .data            inited   0x2000001c    0x10  system_stm32f0xx.o [1]
+    .data            inited   0x2000002c     0x1  image_processing.o [1]
+                            - 0x2000002d    0x2d
+
+"P2", part 2 of 3:                         0x400
+  CSTACK                      0x20000030   0x400  <Block>
+    CSTACK           uninit   0x20000030   0x400  <Block tail>
+                            - 0x20000430   0x400
+
+"P2", part 3 of 3:                         0x9d0
+  .bss               zero     0x20000430   0x2d8  laser_handler.o [1]
+  .bss               zero     0x20000708   0x2d8  laser_handler.o [1]
+  .bss               zero     0x200009e0   0x100  laser_handler.o [1]
+  .bss               zero     0x20000ae0   0x100  laser_handler.o [1]
+  .bss               zero     0x20000be0   0x100  laser_handler.o [1]
+  .bss               zero     0x20000ce0   0x100  laser_handler.o [1]
+  .bss               zero     0x20000de0     0x8  encoder_handler.o [1]
+  .bss               zero     0x20000de8     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000dea     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000dec     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000dee     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000df0     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000df2     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000df4     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000df6     0x2  encoder_handler.o [1]
+  .bss               zero     0x20000df8     0x1  encoder_handler.o [1]
+  .bss               zero     0x20000df9     0x1  encoder_handler.o [1]
+  .bss               zero     0x20000dfa     0x1  encoder_handler.o [1]
+  .bss               zero     0x20000dfb     0x1  encoder_handler.o [1]
+  .bss               zero     0x20000dfc     0x1  laser_handler.o [1]
+  .bss               zero     0x20000dfd     0x1  laser_handler.o [1]
+  .bss               zero     0x20000dfe     0x1  laser_handler.o [1]
+  .bss               zero     0x20000dff     0x1  laser_handler.o [1]
+                            - 0x20000e00   0x9d0
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x9d0:
+          0x20000430  0x9d0
+
+Copy (__iar_copy_init3)
+    1 source range, total size 0x30 (106% of destination):
+          0x08002588   0x30
+    1 destination range, total size 0x2d:
+          0x20000000   0x2d
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module               ro code  ro data  rw data
+    ------               -------  -------  -------
+D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj: [1]
+    encoder_handler.o      1 144                28
+    image_processing.o       348        9        1
+    init_periph.o          1 464
+    laser_handler.o          336        8    2 492
+    main.o                   236
+    startup_stm32f030.o      282
+    stm32f0xx_adc.o          228
+    stm32f0xx_dma.o          588
+    stm32f0xx_flash.o         60
+    stm32f0xx_gpio.o         290
+    stm32f0xx_it.o            56
+    stm32f0xx_misc.o         116
+    stm32f0xx_rcc.o        1 300       16       16
+    stm32f0xx_tim.o        1 660
+    stm32f0xx_usart.o        284
+    system_stm32f0xx.o       512       20       20
+    uart_handler.o           236
+    ----------------------------------------------
+    Total:                 9 140       53    2 557
+
+command line: [2]
+    ----------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    exit.o                     8
+    low_level_init.o           4
+    ----------------------------------------------
+    Total:                    12
+
+rt6M_tl.a: [4]
+    ABImemcpy.o               92
+    ABImemset.o               80
+    I32DivModFast.o          224
+    IntDivZer.o                2
+    XXexit.o                  12
+    cexit.o                   10
+    cmain.o                   26
+    copy_init3.o              48
+    cstartup_M.o              12
+    data_init.o               40
+    zero_init3.o              60
+    ----------------------------------------------
+    Total:                   606
+
+    Gaps                       2
+    Linker created                     39    1 024
+--------------------------------------------------
+    Grand Total:           9 760       92    3 581
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.iar.init_table$$Base   0x080025e4          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x08002608          --   Gb  - Linker created -
+?main                   0x08002609         Code  Gb  cmain.o [4]
+ADC_ChannelConfig       0x08001d69   0x18  Code  Gb  stm32f0xx_adc.o [1]
+ADC_Cmd                 0x08001d4d   0x1c  Code  Gb  stm32f0xx_adc.o [1]
+ADC_DMACmd              0x08001d8b   0x1c  Code  Gb  stm32f0xx_adc.o [1]
+ADC_DMARequestModeConfig
+                        0x08001da7   0x10  Code  Gb  stm32f0xx_adc.o [1]
+ADC_GetFlagStatus       0x08001db7   0x26  Code  Gb  stm32f0xx_adc.o [1]
+ADC_Init                0x08001d05   0x2e  Code  Gb  stm32f0xx_adc.o [1]
+ADC_StartOfConversion   0x08001d81    0xa  Code  Gb  stm32f0xx_adc.o [1]
+ADC_StructInit          0x08001d33   0x1a  Code  Gb  stm32f0xx_adc.o [1]
+AHBPrescTable           0x2000001c   0x10  Data  Gb  system_stm32f0xx.o [1]
+AN_WIDTH                0x2000002c    0x1  Data  Gb  image_processing.o [1]
+APBAHBPrescTable        0x20000008   0x10  Data  Lc  stm32f0xx_rcc.o [1]
+CSTACK$$Base            0x20000030          --   Gb  - Linker created -
+CSTACK$$Limit           0x20000430          --   Gb  - Linker created -
+DMA1_Channel1_IRQHandler
+                        0x0800252d   0x2c  Code  Gb  stm32f0xx_it.o [1]
+DMA_ClearFlag           0x08001c73   0x12  Code  Gb  stm32f0xx_dma.o [1]
+DMA_ClearITPendingBit   0x08001cab   0x12  Code  Gb  stm32f0xx_dma.o [1]
+DMA_Cmd                 0x08001c13   0x1c  Code  Gb  stm32f0xx_dma.o [1]
+DMA_DeInit              0x08001ab9  0x11a  Code  Gb  stm32f0xx_dma.o [1]
+DMA_GetITStatus         0x08001c85   0x26  Code  Gb  stm32f0xx_dma.o [1]
+DMA_ITConfig            0x08001c5b   0x18  Code  Gb  stm32f0xx_dma.o [1]
+DMA_Init                0x08001bd3   0x40  Code  Gb  stm32f0xx_dma.o [1]
+DMA_RemapConfig         0x08001c2f   0x2c  Code  Gb  stm32f0xx_dma.o [1]
+FLASH_PrefetchBufferCmd
+                        0x0800176d   0x24  Code  Gb  stm32f0xx_flash.o [1]
+FLASH_SetLatency        0x08001759   0x14  Code  Gb  stm32f0xx_flash.o [1]
+GPIO_Init               0x08001995   0xa0  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_PinAFConfig        0x08001a5b   0x5c  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_ResetBits          0x08001a57    0x4  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_SetBits            0x08001a51    0x6  Code  Gb  stm32f0xx_gpio.o [1]
+GPIO_StructInit         0x08001a35   0x16  Code  Gb  stm32f0xx_gpio.o [1]
+HardFault_Handler       0x08002523    0x4  Code  Gb  stm32f0xx_it.o [1]
+NMI_Handler             0x08002521    0x2  Code  Gb  stm32f0xx_it.o [1]
+NVIC_EnableIRQ          0x08000d29    0xe  Code  Lc  init_periph.o [1]
+NVIC_Init               0x08002141   0x68  Code  Gb  stm32f0xx_misc.o [1]
+NVIC_SetPriority        0x08000d37   0x84  Code  Lc  init_periph.o [1]
+NVIC_SetPriority        0x080023bd   0x84  Code  Lc  main.o [1]
+PendSV_Handler          0x08002529    0x2  Code  Gb  stm32f0xx_it.o [1]
+RCC_ADCCLKConfig        0x08000891   0x32  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_AHBPeriphClockCmd   0x08000b39   0x20  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_APB1PeriphResetCmd  0x08000ba9   0x20  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_APB2PeriphClockCmd  0x08000b59   0x20  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_APB2PeriphResetCmd  0x08000b81   0x20  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_DeInit              0x08000731   0x68  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_GetClocksFreq       0x0800092d  0x200  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_GetFlagStatus       0x08000bd9   0x4a  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_GetSYSCLKSource     0x08000833    0xa  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_HCLKConfig          0x0800083d   0x14  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_HSEConfig           0x08000799    0xc  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_PCLKConfig          0x08000861   0x16  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_PLLCmd              0x080007f9   0x26  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_PLLConfig           0x080007df   0x1a  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_SYSCLKConfig        0x0800081f   0x14  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_USARTCLKConfig      0x080008d1   0x42  Code  Gb  stm32f0xx_rcc.o [1]
+RCC_WaitForHSEStartUp   0x080007a5   0x3a  Code  Gb  stm32f0xx_rcc.o [1]
+Region$$Table$$Base     0x080025e4          --   Gb  - Linker created -
+Region$$Table$$Limit    0x08002608          --   Gb  - Linker created -
+SVC_Handler             0x08002527    0x2  Code  Gb  stm32f0xx_it.o [1]
+SetSysClock             0x08001891   0xbe  Code  Lc  system_stm32f0xx.o [1]
+SysTick_Config          0x08002441   0x30  Code  Lc  main.o [1]
+SysTick_Handler         0x0800252b    0x2  Code  Gb  stm32f0xx_it.o [1]
+SystemCoreClock         0x20000018    0x4  Data  Gb  system_stm32f0xx.o [1]
+SystemCoreClockUpdate   0x08001803   0x8e  Code  Gb  system_stm32f0xx.o [1]
+SystemInit              0x08001795   0x6e  Code  Gb  system_stm32f0xx.o [1]
+TI1_Config              0x0800060f   0x36  Code  Lc  stm32f0xx_tim.o [1]
+TI2_Config              0x08000645   0x3e  Code  Lc  stm32f0xx_tim.o [1]
+TI3_Config              0x08000683   0x3c  Code  Lc  stm32f0xx_tim.o [1]
+TI4_Config              0x080006c9   0x40  Code  Lc  stm32f0xx_tim.o [1]
+TIM16_IRQHandler        0x080012e1   0x52  Code  Gb  encoder_handler.o [1]
+TIM17_IRQHandler        0x08001333  0x174  Code  Gb  encoder_handler.o [1]
+TIM_ARRPreloadConfig    0x08000229   0x1c  Code  Gb  stm32f0xx_tim.o [1]
+TIM_ClearITPendingBit   0x08000607    0x8  Code  Gb  stm32f0xx_tim.o [1]
+TIM_Cmd                 0x08000245   0x1c  Code  Gb  stm32f0xx_tim.o [1]
+TIM_CtrlPWMOutputs      0x08000279   0x26  Code  Gb  stm32f0xx_tim.o [1]
+TIM_DeInit              0x080000b5   0xf0  Code  Gb  stm32f0xx_tim.o [1]
+TIM_GetCapture1         0x0800057b    0x4  Code  Gb  stm32f0xx_tim.o [1]
+TIM_GetITStatus         0x080005dd   0x2a  Code  Gb  stm32f0xx_tim.o [1]
+TIM_ICInit              0x080004f5   0x70  Code  Gb  stm32f0xx_tim.o [1]
+TIM_ICStructInit        0x08000565   0x16  Code  Gb  stm32f0xx_tim.o [1]
+TIM_ITConfig            0x080005c5   0x18  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OC1Init             0x0800029f   0x8e  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OC1PreloadConfig    0x08000489   0x12  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OC2Init             0x0800033d   0x96  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OC2PreloadConfig    0x080004a1   0x14  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OC4Init             0x080003d9   0x60  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OC4PreloadConfig    0x080004bd   0x14  Code  Gb  stm32f0xx_tim.o [1]
+TIM_OCStructInit        0x08000451   0x22  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetAutoreload       0x08000225    0x4  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetCompare1         0x0800047d    0x4  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetCounter          0x08000221    0x4  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetIC1Prescaler     0x0800057f   0x10  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetIC2Prescaler     0x0800058f   0x12  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetIC3Prescaler     0x080005a1   0x10  Code  Gb  stm32f0xx_tim.o [1]
+TIM_SetIC4Prescaler     0x080005b1   0x12  Code  Gb  stm32f0xx_tim.o [1]
+TIM_TimeBaseInit        0x080001a5   0x64  Code  Gb  stm32f0xx_tim.o [1]
+TIM_TimeBaseStructInit  0x08000209   0x18  Code  Gb  stm32f0xx_tim.o [1]
+USART_Cmd               0x08001eb3   0x1c  Code  Gb  stm32f0xx_usart.o [1]
+USART_DMACmd            0x08001eed   0x18  Code  Gb  stm32f0xx_usart.o [1]
+USART_Init              0x08001de9   0xca  Code  Gb  stm32f0xx_usart.o [1]
+__ICFEDIT_region_RAM_end__ {Abs}
+                        0x20000fff          --   Gb  command line/config [2]
+__ICFEDIT_region_RAM_start__ {Abs}
+                        0x20000000          --   Gb  command line/config [2]
+__aeabi_idiv            0x08000c71         Code  Gb  I32DivModFast.o [4]
+__aeabi_idiv0           0x08000d25         Code  Gb  IntDivZer.o [4]
+__aeabi_idivmod         0x08000c71         Code  Gb  I32DivModFast.o [4]
+__aeabi_memcpy          0x08002361         Code  Gb  ABImemcpy.o [4]
+__aeabi_memset          0x08002311         Code  Gb  ABImemset.o [4]
+__aeabi_uidiv           0x08000c77         Code  Gb  I32DivModFast.o [4]
+__aeabi_uidivmod        0x08000c77         Code  Gb  I32DivModFast.o [4]
+__cmain                 0x08002609         Code  Gb  cmain.o [4]
+__exit                  0x0800263d         Code  Gb  XXexit.o [4]
+__iar_Memset4_word      0x08002331         Code  Gb  ABImemset.o [4]
+__iar_Memset_word       0x0800231d         Code  Gb  ABImemset.o [4]
+__iar_copy_init3        0x08002559   0x30  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x080025bd   0x28  Code  Gb  data_init.o [4]
+__iar_program_start     0x08002649         Code  Gb  cstartup_M.o [4]
+__iar_zero_init3        0x080024e5   0x3c  Code  Gb  zero_init3.o [4]
+__low_level_init        0x08002623    0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x08000000         Data  Gb  startup_stm32f030.o [1]
+_call_main              0x08002615         Code  Gb  cmain.o [4]
+_exit                   0x08002631         Code  Gb  cexit.o [4]
+_main                   0x0800261f         Code  Gb  cmain.o [4]
+adc_dma_config          0x080010cd   0x18  Code  Gb  init_periph.o [1]
+adc_dma_init            0x08001055   0x78  Code  Gb  init_periph.o [1]
+cap_number              0x20000df2    0x2  Data  Gb  encoder_handler.o [1]
+capture_now             0x20000dea    0x2  Data  Gb  encoder_handler.o [1]
+capture_old             0x20000de8    0x2  Data  Gb  encoder_handler.o [1]
+capture_start           0x080010e9   0x72  Code  Gb  init_periph.o [1]
+check_zero_point        0x08001649   0x62  Code  Gb  encoder_handler.o [1]
+clear_tx_buffer         0x080020ed   0x2a  Code  Gb  uart_handler.o [1]
+data_adc_laser0         0x200009e0  0x100  Data  Gb  laser_handler.o [1]
+data_adc_laser1         0x20000be0  0x100  Data  Gb  laser_handler.o [1]
+data_adc_laser_p        0x20000000    0x4  Data  Gb  laser_handler.o [1]
+data_adc_off0           0x20000ae0  0x100  Data  Gb  laser_handler.o [1]
+data_adc_off1           0x20000ce0  0x100  Data  Gb  laser_handler.o [1]
+data_adc_off_p          0x20000004    0x4  Data  Gb  laser_handler.o [1]
+disable_laser           0x0800117d    0xe  Code  Gb  init_periph.o [1]
+enable_laser            0x0800116f    0xe  Code  Gb  init_periph.o [1]
+enc_period              0x20000df0    0x2  Data  Gb  encoder_handler.o [1]
+exit                    0x08002627    0x8  Code  Gb  exit.o [3]
+find_centroid           0x080021b5  0x15c  Code  Gb  image_processing.o [1]
+get_encoder_timer_value
+                        0x08001721    0xc  Code  Gb  encoder_handler.o [1]
+init_adc                0x08000fd5   0x76  Code  Gb  init_periph.o [1]
+init_all_periph         0x08000dbb   0x30  Code  Gb  init_periph.o [1]
+init_clk                0x08000deb   0x6c  Code  Gb  init_periph.o [1]
+init_clk_pin            0x08000ed3   0x36  Code  Gb  init_periph.o [1]
+init_degree_timer       0x08001595   0x9e  Code  Gb  encoder_handler.o [1]
+init_encoder_timer      0x080014a7   0xd8  Code  Gb  encoder_handler.o [1]
+init_gpio               0x08000e57   0x7c  Code  Gb  init_periph.o [1]
+init_uart1              0x080011af   0x82  Code  Gb  init_periph.o [1]
+main                    0x08002471   0x22  Code  Gb  main.o [1]
+meas_handler            0x08001f05   0x60  Code  Gb  laser_handler.o [1]
+meas_status             0x20000dfe    0x1  Data  Gb  laser_handler.o [1]
+overspeed_flag          0x20000df9    0x1  Data  Gb  encoder_handler.o [1]
+proc_done_flag          0x20000dfd    0x1  Data  Gb  laser_handler.o [1]
+process_handler         0x08001f97   0x6c  Code  Gb  laser_handler.o [1]
+refresh_degree_timer    0x080016b1   0x3a  Code  Gb  encoder_handler.o [1]
+res_buf0                0x20000430  0x2d8  Data  Gb  laser_handler.o [1]
+res_buf1                0x20000708  0x2d8  Data  Gb  laser_handler.o [1]
+res_buf_num             0x20000dfc    0x1  Data  Gb  laser_handler.o [1]
+rot_num                 0x20000df8    0x1  Data  Gb  encoder_handler.o [1]
+rot_period              0x20000dee    0x2  Data  Gb  encoder_handler.o [1]
+set_degree_timer_period
+                        0x080016f1   0x26  Code  Gb  encoder_handler.o [1]
+small_delay             0x0800115d   0x12  Code  Gb  init_periph.o [1]
+start_send_result       0x08002055   0x6a  Code  Gb  uart_handler.o [1]
+stop_capture            0x08002003   0x1e  Code  Gb  laser_handler.o [1]
+stop_hardware_capture   0x08000fb5   0x20  Code  Gb  init_periph.o [1]
+switch_adc_buf          0x08001f65   0x32  Code  Gb  laser_handler.o [1]
+switch_led              0x0800118b   0x24  Code  Gb  init_periph.o [1]
+sync_failed_flag        0x20000dfa    0x1  Data  Gb  encoder_handler.o [1]
+time_tmp                0x20000dec    0x2  Data  Gb  encoder_handler.o [1]
+timer1_init             0x08000f09   0xac  Code  Gb  init_periph.o [1]
+uart_dma_init           0x0800123d   0x56  Code  Gb  init_periph.o [1]
+uart_tx_dma_config      0x080020bf   0x2e  Code  Gb  uart_handler.o [1]
+
+
+[1] = D:\GITHUB\OpenSimpleLidar\Firmware\lidar4_main_code\EWARM\Output\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+
+  9 760 bytes of readonly  code memory
+     92 bytes of readonly  data memory
+  3 581 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

@@ -8,12 +8,15 @@ volatile uint16_t capture_now = 0;//Captured time (in "ENC_TIM" ticks)
 volatile uint16_t time_tmp = 0;//Time of rotating for 1 deg (in "ENC_TIM" ticks)
 volatile uint8_t  rot_num  = 0;//Number of encoder events
 volatile uint16_t rot_period  = 0;//Disc rotation period (in ms)
+volatile uint16_t enc_period;//Time between encoder events (in "ENC_TIM" ticks)
 
 volatile uint8_t overspeed_flag   = 0;//1 - speed is too high
 volatile uint8_t sync_failed_flag = 0;//1 - sync error - erron en counting encoder marks
 
 volatile uint16_t cap_number = 0;//Number of sampled points
 extern volatile meas_status_type meas_status;//Status of capture 3 images
+
+uint16_t get_encoder_timer_value(void);
 
 //TIM16 Compare interrupt - every 1 deg of rotation
 //used for starting image capture
@@ -37,19 +40,23 @@ void TIM16_IRQHandler(void)
   }
 }
 
-//TIM17 Input Capture interrupt - from encoder
+//TIM17 Input Capture interrupt - from the encoder
 void TIM17_IRQHandler(void)
 {
-  volatile uint16_t enc_period;//Time between encoder events (in "ENC_TIM" ticks)
+  
   volatile static uint16_t zero_old = 0;
   volatile static uint16_t zero_now = 0;
-  
+
+#ifdef ENABLE_ENCODER_EMULATION  
+  if (1)
+  {
+#else  
   if (TIM_GetITStatus(ENC_TIM_NAME, TIM_IT_CC1) != RESET)
   {
+#endif
     TIM_ClearITPendingBit(ENC_TIM_NAME, TIM_IT_CC1);
-    
     capture_old = capture_now;
-    capture_now = TIM_GetCapture1(ENC_TIM_NAME);
+    capture_now = get_encoder_timer_value();
     
     //Overflow controlling
     if (capture_now >= capture_old) 
@@ -90,7 +97,7 @@ void TIM17_IRQHandler(void)
       time_tmp = enc_period / ENC_ARC_DEG;
       
       zero_old = zero_now;
-      zero_now = TIM_GetCapture1(ENC_TIM_NAME);
+      zero_now = get_encoder_timer_value();
       if (zero_now >= zero_old) 
         rot_period = (zero_now - zero_old) / (TIMERS_FREQUENCY / KILO_CONST);
       else 
@@ -102,9 +109,9 @@ void TIM17_IRQHandler(void)
         switch_led(1);
       }
       else
-	  {
+      {
         //switch_led(0);
-	  }
+      }
       
       stop_capture();
       if (sync_failed_flag == 0)
@@ -114,7 +121,7 @@ void TIM17_IRQHandler(void)
       //printf("%d\r\n", rot_num);
       sync_failed_flag = 0;
       rot_num = 0;
-      cap_number = 0;//???
+      cap_number = 0;
       //printf("zero %d\r\n", time_tmp);
       refresh_degree_timer(time_tmp-1);
     }
@@ -131,18 +138,16 @@ void TIM17_IRQHandler(void)
 void init_encoder_timer(void)
 {
   TIM_TimeBaseInitTypeDef       TIM_TimeBaseStructure;
-  TIM_ICInitTypeDef             TIM_ICInitStructure;
+  
   NVIC_InitTypeDef              NVIC_InitStructure;
   GPIO_InitTypeDef              GPIO_InitStructure;
   
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM17, ENABLE);
   
-  //Encoder
-  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;//Data from the encoder
   GPIO_InitStructure.GPIO_Pin   = ENCODER_PIN;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  //GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
   GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
   GPIO_Init(ENCODER_PORT, &GPIO_InitStructure);
   GPIO_PinAFConfig(ENCODER_PORT, ENCODER_PIN_SRC, GPIO_AF_5);
@@ -155,7 +160,10 @@ void init_encoder_timer(void)
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
   TIM_TimeBaseInit(ENC_TIM_NAME, &TIM_TimeBaseStructure);
   
+#ifndef ENABLE_ENCODER_EMULATION
   // channel1 - input capture - falling edge
+  
+  TIM_ICInitTypeDef             TIM_ICInitStructure;
   TIM_ICStructInit(&TIM_ICInitStructure);
   TIM_ICInitStructure.TIM_Channel       = TIM_Channel_1;
   TIM_ICInitStructure.TIM_ICPolarity    = TIM_ICPolarity_Falling;
@@ -164,8 +172,6 @@ void init_encoder_timer(void)
   TIM_ICInitStructure.TIM_ICFilter      = 15;//uart produce some noise
   TIM_ICInit(ENC_TIM_NAME, &TIM_ICInitStructure);
 
-  TIM_ARRPreloadConfig(TIM17, ENABLE);
-
   TIM_ClearITPendingBit(ENC_TIM_NAME, TIM_IT_CC1);
   TIM_ITConfig(ENC_TIM_NAME, TIM_IT_CC1, ENABLE);
 
@@ -173,7 +179,9 @@ void init_encoder_timer(void)
   NVIC_InitStructure.NVIC_IRQChannelPriority    = 15;
   NVIC_InitStructure.NVIC_IRQChannelCmd         = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
+#endif
 
+  TIM_ARRPreloadConfig(TIM17, ENABLE);
   TIM_Cmd(ENC_TIM_NAME, ENABLE);
 }
 
@@ -189,7 +197,7 @@ void init_degree_timer(void)
   TIM_DeInit(DEGREE_TIM_NAME);
   TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
 
-  TIM_TimeBaseStructure.TIM_Prescaler = TIM16_PRESCALER;
+  TIM_TimeBaseStructure.TIM_Prescaler = DEGREE_TIM_PRESCALER;
   TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
   TIM_TimeBaseStructure.TIM_ClockDivision = 0x0;
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
@@ -259,5 +267,30 @@ void set_degree_timer_period(uint16_t period)
   TIM_SetAutoreload(DEGREE_TIM_NAME, period);
   TIM_SetCompare1(DEGREE_TIM_NAME, (period/2));
 }
+
+uint16_t get_encoder_timer_value(void)
+{
+#ifdef ENABLE_ENCODER_EMULATION
+  return TIM_GetCounter(ENC_TIM_NAME);
+#else
+  return TIM_GetCapture1(ENC_TIM_NAME);
+#endif
+}
+
+#ifdef ENABLE_ENCODER_EMULATION
+
+void emulated_encoder_timer_event(void)
+{
+  static uint16_t virt_encoder_pos = 1;
+  
+  virt_encoder_pos++;
+  if (virt_encoder_pos > (ENC_NUM + 1))
+    virt_encoder_pos = 1;
+  
+  if (virt_encoder_pos <= ENC_NUM)
+    TIM17_IRQHandler();
+}
+
+#endif
 
 

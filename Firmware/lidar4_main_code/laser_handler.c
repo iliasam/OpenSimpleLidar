@@ -45,7 +45,7 @@ void meas_handler(void)
     }
     case PHASE_1: //завершилась 1 фаза
     {
-      disable_laser();      
+      disable_laser();
       capture_start(data_adc_laser_p);//Laser is disabled, but captured data are with laser enabled
       meas_status = PHASE_2;
       break;
@@ -107,13 +107,21 @@ void process_handler(void)
   uint16_t tmp_cap_number = cap_number;
   uint8_t  tmp_res_buf_num = res_buf_num;
   uint16_t tmp_centroid = 0;
-  
+
   //If images of the last degree are captured and processing is not done
   //Изображения последнего градуса захвачены и обработка еще не выполнялась
   if ((meas_status == PHASE_DONE) && (proc_done_flag == 0))
   {
+    if (tmp_cap_number > 359)
+    {
+      //Error found
+      proc_done_flag = 1;
+      return;
+    }
+  
     //switch_led(1);
     centroid_result_type centroid_result = find_centroid();
+    
     
     //Data is placed to  certain result buffer
     //Данные помещаются в нужный буфер
@@ -141,3 +149,4 @@ void stop_capture(void)
   res_buf_num^= 1;//Switch result buffer - изменить буфер результата
   clear_tx_buffer();//Clean tx buffer before transmitting data
 }
+

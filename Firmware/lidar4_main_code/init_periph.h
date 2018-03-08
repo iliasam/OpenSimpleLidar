@@ -3,7 +3,17 @@
 
 #include "stm32f0xx.h"
 
-#define TIM1_PERIOD     100
+#define TIM1_PRESCALER  0
+
+//STM32F030 AC max sample rate is 1 MSPS
+#define ADC_FREQUENCY   480000//Hz
+#define TIM1_PERIOD     ((SystemCoreClock / ADC_FREQUENCY) - 1)
+
+//For dummy capture
+//#define ADC_FREQUENCY_FAST      800000//Hz
+
+
+//#define TIM1_PERIOD_FAST        ((SystemCoreClock / ADC_FREQUENCY_FAST) - 1)
 
 typedef enum
 {
@@ -59,6 +69,8 @@ void disable_laser(void);
 
 void switch_led(uint8_t val);
 void delay_ms(uint32_t ms);
+
+void switch_capture_speed(uint8_t is_high_speed);
 
 #endif
 

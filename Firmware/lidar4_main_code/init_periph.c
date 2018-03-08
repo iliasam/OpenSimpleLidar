@@ -136,8 +136,8 @@ void timer1_init(void)
   TIM_OCStructInit(&TIM_OCInitStructure);
   TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
 
-  TIM_TimeBaseStructure.TIM_Prescaler = 0; 
-  TIM_TimeBaseStructure.TIM_Period = TIM1_PERIOD - 1;
+  TIM_TimeBaseStructure.TIM_Prescaler = TIM1_PRESCALER; 
+  TIM_TimeBaseStructure.TIM_Period = TIM1_PERIOD;
   TIM_TimeBaseStructure.TIM_ClockDivision = 0x0;
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
   TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
@@ -153,7 +153,8 @@ void timer1_init(void)
   // channel4 - ADC trigger
   TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
   TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;// TIM_OutputState_Enable needed for F030 to be ADC trigger         
-  TIM_OCInitStructure.TIM_Pulse = TIM1_PERIOD - 10;   
+  TIM_OCInitStructure.TIM_Pulse = TIM1_PERIOD - 10;
+  //TIM_OCInitStructure.TIM_Pulse = 35;
   TIM_OC4Init(TIM1, &TIM_OCInitStructure);
   
   TIM_OC2PreloadConfig(TIM1, TIM_OCPreload_Enable);
@@ -194,7 +195,7 @@ void init_adc(void)
   
   ADC_ChannelConfig(ADC1, ADC_Channel_0 , ADC_SampleTime_1_5Cycles);
   
-  ADC_GetCalibrationFactor(ADC1);
+  //ADC_GetCalibrationFactor(ADC1);
   
   ADC_DMARequestModeConfig(ADC1, ADC_DMAMode_OneShot);
   ADC_DMACmd(ADC1, ENABLE);//adc generated events for DMA
@@ -267,9 +268,6 @@ void capture_start(volatile uint16_t* pointer)
   DMA_Cmd(DMA1_Channel1, ENABLE);
   TIM1->CR1 |= TIM_CR1_CEN;//Start TIM1 -> ADC -> DMA -> RAM
 }
-
-
-
 
 
 void small_delay(void)
@@ -370,5 +368,28 @@ void delay_ms(uint32_t ms)
   nCount=(RCC_Clocks.HCLK_Frequency/10000)*ms;
   for (; nCount!=0; nCount--);
 }
+
+/*
+//Timer1 must be already disabled
+void switch_capture_speed(uint8_t is_high_speed)
+{
+  ADC_Cmd(ADC1, DISABLE);
+ 
+  
+  if (is_high_speed)
+  {
+    TIM_SetAutoreload(TIM1, TIM1_PERIOD_FAST);
+    TIM_SetCompare4(TIM1, TIM1_PERIOD_FAST - 10);//adc trigger
+  }
+  else
+  {
+    TIM_SetAutoreload(TIM1, TIM1_PERIOD);
+    TIM_SetCompare4(TIM1, TIM1_PERIOD - 10);//adc trigger
+  }
+  
+  ADC_Cmd(ADC1, ENABLE);
+  while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_ADRDY)); 
+}
+*/
 
 
