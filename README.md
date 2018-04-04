@@ -5,7 +5,7 @@ It is really cheap - it's components cost less than $35.
 
 ![Alt text](Misc/Photo_of_LIDAR1.jpg?raw=true "Image")
 
-Example of Hector SLAM working wih this Lidar:
+Example of Hector SLAM working with this Lidar:
 ![Alt text](Misc/hector_slam_map_test1.png?raw=true "Image")
 
 This Lidar is using triangulation method for measuring distance to an objects. It can be shown by this picture:
