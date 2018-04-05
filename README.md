@@ -15,4 +15,6 @@ Some modeled pictures of the assembled Lidar can be found here: https://github.c
 
 Now I'm updating the documentation for this LIDAR.
 
-Some more info: https://hackaday.io/project/20628-opensimplelidar
+Some more info: https://hackaday.io/project/20628-opensimplelidar  
+
+See also another my Lidar project: https://github.com/iliasam/OpenLIDAR
