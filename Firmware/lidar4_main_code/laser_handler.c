@@ -50,7 +50,7 @@ void meas_handler(void)
     {
       disable_laser();
       capture_start(data_adc_laser_p);//Laser is disabled, but captured data are with laser enabled
-      meas_status = PHASE_2;
+      meas_status = PHASE_3;//PHASE_2 must be here, but this give better result
       break;
     }
 
