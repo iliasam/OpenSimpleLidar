@@ -1,14 +1,13 @@
 #include "main.h"
 #include "image_processing.h"
 
-//Half width of the peak
-#define AN_WIDTH_HIGH 8 //половина ширины анализа пика
+//Half wight of the peak - for high power
+#define AN_WIDTH_HIGH	8 
 
-//Half width of the peak
-#define AN_WIDTH_LOW 3 //половина ширины анализа пика
+#define AN_WIDTH_LOW 3 //Half wight of the peak - for high power
 
 //Protection from reflected signals
-//#define REFL_FILTER //защита от ложных отраженных сигналов
+//#define REFL_FILTER
 
 uint8_t AN_WIDTH = AN_WIDTH_HIGH;
 
@@ -47,13 +46,13 @@ centroid_result_type find_centroid(void)
     
   for (i=0; i<CAPTURED_POINTS_CNT; i++)
   {
-    //Subtract one image from another - вычитание одного изображения из другого
+    //Subtract one image from another
     if (proc_adc_laser_p[i] > proc_adc_off_p[i]) 
       proc_data[i] = proc_adc_laser_p[i] - proc_adc_off_p[i];
     else 
       proc_data[i] = 0;
     
-    //Maximum detection - поиск максимума
+    //Maximum detection
     if (proc_data[i] > max_val) 
     {
       max_val = proc_data[i];
@@ -101,7 +100,7 @@ centroid_result_type find_centroid(void)
         
         if ((delta1 > 0) && (delta2 < 0) && (i != max_pos))
         {
-          //найден максимум
+          //Maximum found
           if (fmax_val < proc_data[i]) {fmax_val = proc_data[i];}
         }
         
@@ -114,7 +113,7 @@ centroid_result_type find_centroid(void)
     
 #endif
     
-    //Subpixel maximum calculation - субпиксельный расчет максимума
+    //Subpixel maximum calculation
     for (i = start_pos; i < stop_pos; i++)
     {
       summ = summ + i * proc_data[i];
@@ -122,16 +121,10 @@ centroid_result_type find_centroid(void)
     }
     
     if (summ2 > 0) 
-      tmp_centroid = ((summ * 100) / summ2);//Maximum positionis multiplied to 100
-    
-    /*
-    if (max_val < 50)  {tmp_centroid = 1;}//защита от слишком слабых сигналов
-    if (max_pos < 6)   {tmp_centroid = 2;}//защита от слишком слабых сигналов
-    if (max_pos > 126) {tmp_centroid = 3;}//защита от неправильного вычисления на близких расстояниях
-    */
+      tmp_centroid = ((summ * 100) / summ2);//Maximum position is multiplied to 100
 
     if (off_flag == 1) 
-      tmp_centroid = tmp_centroid + 20000;
+      tmp_centroid = tmp_centroid + 20000;//mark bad data
     
     result.max_val = max_val;
     result.centroid = tmp_centroid;

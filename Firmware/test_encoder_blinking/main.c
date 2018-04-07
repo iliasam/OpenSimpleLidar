@@ -1,5 +1,5 @@
 //Open Simple Lidar v4
-//Testing code - blinking LED when encoder evert occurs
+//Testing code - blinking LED when encoder event occurs
 //UART TX pin is used as GPIO pin
 //by ILIASAM
 

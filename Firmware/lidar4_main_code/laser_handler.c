@@ -4,10 +4,12 @@
 #include "laser_handler.h"
 #include "image_processing.h"
 
-//Results buffers - their values are transmitted to UART
+//Results buffers - their values are transmitted to the UART
 uint16_t res_buf0[PACKET_LENGTH];
 uint16_t res_buf1[PACKET_LENGTH];
-uint8_t  res_buf_num = 0;//Number of buffer, that are filling NOW, another one is transmitting to UART
+
+//Number of the buffer (0/1) that is filling NOW, another one is transmitting to UART
+uint8_t  res_buf_num = 0;
 
 //Buffer0 - raw data from ADC
 volatile uint16_t data_adc_laser0[CAPTURED_POINTS_CNT];
@@ -17,19 +19,20 @@ volatile uint16_t data_adc_off0[CAPTURED_POINTS_CNT];
 volatile uint16_t data_adc_laser1[CAPTURED_POINTS_CNT];
 volatile uint16_t data_adc_off1[CAPTURED_POINTS_CNT];
 
-volatile uint16_t* data_adc_laser_p = data_adc_laser0;//pointer to raw data from ADC with enabled laser
-volatile uint16_t* data_adc_off_p   = data_adc_off0;  //pointer to raw data from ADC with disabled laser
+volatile uint16_t* data_adc_laser_p = data_adc_laser0;//pointer to the raw data from the ADC with enabled laser
+volatile uint16_t* data_adc_off_p   = data_adc_off0;  //pointer to the raw data from the ADC with disabled laser
 
-volatile uint8_t proc_done_flag = 0;//This flag is set to 1 after processing all data
+//This flag is set to 1 after processing all data
+volatile uint8_t proc_done_flag = 0;
 
-volatile meas_status_type meas_status;//Status of captring data
+//Status of capturing data
+volatile meas_status_type meas_status;
 
-extern volatile uint16_t cap_number;//Number of sampled points
+//Number of sampled points
+extern volatile uint16_t cap_number;
 
-
-//управляет захватом
-//вызывается из обработчика прерывания TIM16 или по прерыванию DMA TIM1 - по завершению захвата строки
 //This function is controlling data capture - it is switching capture modes
+//It is called from TIM16 interrupt handler or by DMA interrupt handler - after capturing full image line
 void meas_handler(void)
 {
   
@@ -43,7 +46,7 @@ void meas_handler(void)
       meas_status = PHASE_1;
       break;
     }
-    case PHASE_1: //завершилась 1 фаза
+    case PHASE_1: //Phase 1 ended
     {
       disable_laser();
       capture_start(data_adc_laser_p);//Laser is disabled, but captured data are with laser enabled
@@ -51,16 +54,16 @@ void meas_handler(void)
       break;
     }
 
-    case PHASE_2: //завершилась 2 фаза
+    case PHASE_2: //Phase 2 ended
     {
       capture_start(data_adc_off_p);//Laser is disabled, and captured data are with laser disabled
       meas_status = PHASE_3;
       break;
     }
-    case PHASE_3: //завершилась 3 фаза
+    case PHASE_3: //Phase 3 ended
     {
       meas_status = PHASE_DONE;
-      proc_done_flag = 0;//декодирование разрешено
+      proc_done_flag = 0; //Data analyses enabled
       //switch_led(0);
       break;
     }
@@ -69,28 +72,21 @@ void meas_handler(void)
       break;
     }
   }//end of case
-  
-  //meas_status = PHASE_DONE;
-  //proc_done_flag = 0;//декодирование разрешено
 }
 
-
-//переключает буферы захавта ацп
-//вызывается из обработчика прерывания - перед началом новгого захвата
 //Switch ADC capture buffer
-//Called from DMA interrupt handler
+//Called from DMA interrupt handler - before starting new capture
 void switch_adc_buf(void)
 {
   volatile static uint8_t tmp_flag = 0;
   tmp_flag^= 1;
   
-  //if ((cap_number & 1) == 1) //нечетные изображения в 0 буфер
-  if ((tmp_flag & 1) == 1) //нечетные изображения в 0 буфер
+  if ((tmp_flag & 1) == 1) //Send odd lines to 0 buffer
   {
     data_adc_laser_p = &data_adc_laser0[0];
     data_adc_off_p   = &data_adc_off0[0];
   }
-  else //четные изображения в 1 буфер
+  else //Send even lines to 1 buffer
   {
     data_adc_laser_p = &data_adc_laser1[0];
     data_adc_off_p   = &data_adc_off1[0];
@@ -98,18 +94,15 @@ void switch_adc_buf(void)
 }
 
 
-//производит обработку полученных данных
-//Make data processing
+//Make captured data processing
 void process_handler(void)
 {
   //This variables are used to protect from changing volatile variables
-  //для защиты от возможного изменения переменной
   uint16_t tmp_cap_number = cap_number;
   uint8_t  tmp_res_buf_num = res_buf_num;
   uint16_t tmp_centroid = 0;
 
-  //If images of the last degree are captured and processing is not done
-  //Изображения последнего градуса захвачены и обработка еще не выполнялась
+  //If images of the last degree are captured and processing is not done yet
   if ((meas_status == PHASE_DONE) && (proc_done_flag == 0))
   {
     if (tmp_cap_number > 359)
@@ -122,9 +115,7 @@ void process_handler(void)
     //switch_led(1);
     centroid_result_type centroid_result = find_centroid();
     
-    
     //Data is placed to  certain result buffer
-    //Данные помещаются в нужный буфер
     tmp_centroid = centroid_result.centroid;
     
     if (centroid_result.max_val < 50)
@@ -136,17 +127,17 @@ void process_handler(void)
       res_buf1[tmp_cap_number + PACKET_OFFSET] = tmp_centroid;
     
     
-    proc_done_flag = 1;//Protection from new data processing start - защита от повторного запуска
+    proc_done_flag = 1;//Protection from new data processing start
     //switch_led(0);
   }
 }
 
-//Stop capturng image, reset some flags and switch buffers
+//Stop capturing image, reset some flags and switch buffers
 void stop_capture(void)
 {
   stop_hardware_capture();
   meas_status = PHASE_WAIT;
-  res_buf_num^= 1;//Switch result buffer - изменить буфер результата
+  res_buf_num^= 1;//Switch result buffer
   clear_tx_buffer();//Clean tx buffer before transmitting data
 }
 

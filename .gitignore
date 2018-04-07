@@ -3,6 +3,8 @@
 *.s
 *.bat
 *.pbi
+*.out
+*.map
 
 /Debug
 Firmware/test1_capture_image/EWARM/Output/

@@ -4,17 +4,17 @@
 
 //Used for speed sensor
 volatile uint16_t capture_old = 0;
-volatile uint16_t capture_now = 0;//Captured time (in "ENC_TIM" ticks)
-volatile uint16_t time_tmp = 0;//Time of rotating for 1 deg (in "ENC_TIM" ticks)
-volatile uint8_t  rot_num  = 0;//Number of encoder events
-volatile uint16_t rot_period  = 0;//Disc rotation period (in ms)
-volatile uint16_t enc_period;//Time between encoder events (in "ENC_TIM" ticks)
+volatile uint16_t capture_now = 0; //Captured time (in "ENC_TIM" ticks)
+volatile uint16_t time_tmp = 0; //Time of rotating for 1 deg (in "ENC_TIM" ticks)
+volatile uint8_t  rot_num  = 0; //Number of encoder events
+volatile uint16_t rot_period  = 0; //Disc rotation period (in ms)
+volatile uint16_t enc_period; //Time between encoder events (in "ENC_TIM" ticks)
 
-volatile uint8_t overspeed_flag   = 0;//1 - speed is too high
-volatile uint8_t sync_failed_flag = 0;//1 - sync error - erron en counting encoder marks
+volatile uint8_t overspeed_flag   = 0; //1 - speed is too high
+volatile uint8_t sync_failed_flag = 0; //1 - sync error - error at counting encoder marks
 
 volatile uint16_t cap_number = 0;//Number of sampled points
-extern volatile meas_status_type meas_status;//Status of capture 3 images
+extern volatile meas_status_type meas_status;//Status of capturing 3 images
 
 uint16_t get_encoder_timer_value(void);
 
@@ -28,8 +28,8 @@ void TIM16_IRQHandler(void)
     DEGREE_TIM_NAME->SR &= ~TIM_SR_CC1IF;//Clear interrupt flag
     if (cap_number < 359)
     {
-	  //Start capturing new degree - from zero phase
-      meas_status = PHASE_WAIT;//Начать захват нового градуса (с нулевой фазы)
+	  //Start capturing new degree - from a zero phase
+      meas_status = PHASE_WAIT;
       cap_number++;
 #ifdef TWO_DEG_MODE
   cap_number++;
@@ -85,12 +85,12 @@ void TIM17_IRQHandler(void)
       overspeed_flag = 0;
     }
     
-    time_tmp = enc_period / ENC_ARC_DEG;//time of the rotation for 1 deg
+    time_tmp = enc_period / ENC_ARC_DEG; //time of the rotation for 1 deg
     
     rot_num++;
     cap_number = rot_num * ENC_ARC_DEG;
     
-    if (check_zero_point(time_tmp) == 1)//Zero crossing detected
+    if (check_zero_point(time_tmp) == 1) //Zero crossing detected
     {
       //"enc_period" here is doubled because of encoder construction
       enc_period = enc_period / 2;
@@ -110,7 +110,7 @@ void TIM17_IRQHandler(void)
       }
       else
       {
-        //switch_led(0);
+        switch_led(0);
       }
       
       stop_capture();
@@ -224,7 +224,7 @@ void init_degree_timer(void)
   //Timer will be started later - in "refresh_degree_timer"
 }
 
-//Если время в 1.5 раза превышает среднее - возвращает 1
+
 //Return 1 if "time" > 1.5 times bigger than average time (4 points).
 uint8_t check_zero_point(uint16_t time)
 {

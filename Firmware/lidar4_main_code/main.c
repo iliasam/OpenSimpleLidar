@@ -1,5 +1,5 @@
 //Open Simple Lidar v4
-//Testing code - blinking LED when encoder evert occurs
+//Main LIDAR code
 //by ILIASAM
 
 //Main configuration values are placed at "main.h"

@@ -40,26 +40,29 @@
 //Number of the pixels in TSL1401
 #define CAPTURED_POINTS_CNT     128
 
-#define TWO_DEG_MODE    //measurement every 2 deg - 180 points per rotation
+//Measurement every 2 deg - 180 points per rotation
 //This helps to increase speed twice
+#define TWO_DEG_MODE    
+
 
 //Length of packet in halfwords (2 bytes)
 //360 data + 2 header + 1 status flags + 1 speed
 #define PACKET_OFFSET (uint16_t)(2+1+1)
 #define PACKET_LENGTH (uint16_t)(360+PACKET_OFFSET)
 
-#define ENC_NUM                 15     //Number of encoder marks (holes)
+//Number of encoder marks (holes)
+#define ENC_NUM                 15     
 
 #define UART_BAUDRATE           115200
 
-#define SYSTICK_FREQUENCY       1000//Hz
+#define SYSTICK_FREQUENCY       1000 //Hz
     
-//Эмуляция энкодера для отладочных целей
+//Emulating encoder for debug purposes
 //#define ENABLE_ENCODER_EMULATION
     
 #ifdef ENABLE_ENCODER_EMULATION
     
-#define VIRTUAL_ROTATION_SPEED  4//Rotation per second
+#define VIRTUAL_ROTATION_SPEED  4 //Rotation per second
 #define VIRTUAL_ROTATION_PERIOD (1000 /  VIRTUAL_ROTATION_SPEED) //1000ms in one sec
     
 //Perio of the emulated encoder

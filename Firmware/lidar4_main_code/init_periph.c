@@ -2,9 +2,9 @@
 #include "main.h"
 #include "init_periph.h"
 
-DMA_InitTypeDef           DMA_InitStructure;
+DMA_InitTypeDef				DMA_InitStructure;
 
-extern volatile uint16_t data_adc_laser0[CAPTURED_POINTS_CNT];
+extern volatile uint16_t 	data_adc_laser0[CAPTURED_POINTS_CNT];
 
 void init_clk(void);
 void init_gpio(void);
@@ -240,7 +240,7 @@ void adc_dma_init(void)
 }
 
 
-//Configure DMA for new capture
+//Configure DMA for a new capture
 //pointer - pointer to RAM to store ADC data
 void adc_dma_config(uint16_t* pointer)
 { 
