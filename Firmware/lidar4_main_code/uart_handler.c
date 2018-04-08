@@ -4,7 +4,9 @@
 
 extern uint16_t res_buf0[PACKET_LENGTH];
 extern uint16_t res_buf1[PACKET_LENGTH];
-extern uint8_t  res_buf_num;//Number of buffer, that are filling NOW, another one is transmitting to UART- switched at zero crossing
+
+//Number of buffer, that are filling NOW, another one is transmitting to UART- switched at zero crossing
+extern uint8_t  res_buf_num;
 
 extern volatile uint16_t rot_period;//Disc rotation period (in ms)
 extern volatile uint8_t overspeed_flag;
@@ -31,14 +33,12 @@ void start_send_result(void)
   }
   */
   
-  
   uint16_t tmp_status_value = 0;
   if (overspeed_flag != 0) 
     tmp_status_value|= STATUS_WORD_OVERSPEED_MASK;
   
   tmp_status_value|= STATUS_WORD_LIDAR4_MASK;
   
-  //если сейчас заполняется один буфер, то начинаем передавать другой
   if (res_buf_num == 0)
   {
     res_buf1[0] = 0xBBAA;//header
