@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=USB0
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=1099484786
+Checksum=-1443127177
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0

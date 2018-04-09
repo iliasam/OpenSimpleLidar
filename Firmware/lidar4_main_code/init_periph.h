@@ -58,6 +58,7 @@ typedef enum
 
 
 void init_all_periph(void);
+void init_clk(void);
 
 void capture_start(volatile uint16_t* pointer);
 void stop_hardware_capture(void);

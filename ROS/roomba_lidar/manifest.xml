@@ -1,0 +1,16 @@
+<package>
+  <description brief="iliasam_laser_driver">
+     Iliasam Laser LIDAR Driver.
+  </description>
+  <author>Eric Perko, Chad Rockey, iliasam</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>no</url>
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+
+  <rosdep name="boost" />
+
+</package>
+
+

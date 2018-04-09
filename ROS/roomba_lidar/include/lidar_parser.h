@@ -32,26 +32,29 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
+//Modifided by ILIASAM 2018
+
 #include <sensor_msgs/LaserScan.h>
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
 #include <string>
 
-namespace xv_11_laser_driver {
-    class XV11Laser {
+namespace tr_lidar_driver 
+{
+    class LidarParser {
         public:
             /**
-              * @brief Constructs a new XV11Laser attached to the given serial port
+              * @brief Constructs a new LidarParser attached to the given serial port
               * @param port The string for the serial port device to attempt to connect to, e.g. "/dev/ttyUSB0"
               * @param baud_rate The baud rate to open the serial port at.
               * @param io Boost ASIO IO Service to use when creating the serial port object
               */
-            XV11Laser(const std::string& port, uint32_t baud_rate, uint32_t firmware, boost::asio::io_service& io);
+            LidarParser(const std::string& port, uint32_t baud_rate, uint32_t firmware, boost::asio::io_service& io);
 
             /**
               * @brief Default destructor
               */
-            ~XV11Laser() {};
+            ~LidarParser() {};
 
             /**
               * @brief Poll the laser to get a new scan. Blocks until a complete new scan is received or close is called.
@@ -63,6 +66,11 @@ namespace xv_11_laser_driver {
               * @brief Close the driver down and prevent the polling loop from advancing
               */
             void close() { shutting_down_ = true; };
+            
+            ///Rangefinder triangulation coefficients
+	    double a_coef;
+            double b_coef;
+            double base_coef;
 
         private:
             std::string port_; ///< @brief The serial port the driver is attached to

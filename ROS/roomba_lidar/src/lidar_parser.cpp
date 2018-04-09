@@ -31,22 +31,35 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
-//citizen laser
+//Modifided by ILIASAM 2018
 
-#include <xv11_laser.h>
+#include <lidar_parser.h>
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <ros/ros.h>
 
 //total packet length (2+1+360)*2 bytes - 728
-//2 words-header + 1 word status + 1 word - speed
+//2 words - header + 1 word status + 1 word - speed
 
-namespace xv_11_laser_driver {
-  XV11Laser::XV11Laser(const std::string& port, uint32_t baud_rate, uint32_t firmware, boost::asio::io_service& io): port_(port),
-  baud_rate_(baud_rate), firmware_(firmware), shutting_down_(false), serial_(io, port_) {
-    serial_.set_option(boost::asio::serial_port_base::baud_rate(baud_rate_));
-  }
+//0 bit - overspeed flag
+#define STATUS_WORD_OVERSPEED_MASK     (1<<0)
 
-  void XV11Laser::poll(sensor_msgs::LaserScan::Ptr scan) {
+//15 bit - shows that this is lidar 4
+#define STATUS_WORD_LIDAR4_MASK        (1<<15)
+
+//Degrees
+#define LIDAR3_ANG_OFFSET        		14
+
+namespace tr_lidar_driver
+{
+  LidarParser::LidarParser(const std::string& port, uint32_t baud_rate, uint32_t firmware, boost::asio::io_service& io): 
+  port_(port),
+  baud_rate_(baud_rate),
+  firmware_(firmware),
+  shutting_down_(false),
+  serial_(io, port_) {serial_.set_option(boost::asio::serial_port_base::baud_rate(baud_rate_));}
+
+  void LidarParser::poll(sensor_msgs::LaserScan::Ptr scan) {
     uint8_t temp_char;
     uint8_t start_count = 0;
     uint16_t pix = 0;
@@ -55,9 +68,9 @@ namespace xv_11_laser_driver {
     int index;
     
     double dist_scan[360];
-    int16_t offset1;
+    uint16_t offset1;
     int16_t offset2;
-    int16_t ang_corr;
+    uint16_t ang_corr;
     int bad_data_flag = 0;
     
     uint16_t i;
@@ -66,14 +79,18 @@ namespace xv_11_laser_driver {
     uint8_t byte1;
     
     uint16_t scan_time = 0;
+	uint16_t status_word = 0;
+	
+	double max_distance = 5.0;//meters
+	int16_t static_angular_offset = LIDAR3_ANG_OFFSET;//deg
     
 	
-      boost::array<uint8_t, 724> raw_bytes;
-      boost::array<uint8_t, 4> raw_bytes2;
+    boost::array<uint8_t, 724> raw_bytes;
+    boost::array<uint8_t, 4> raw_bytes2;
       
-      while (!shutting_down_ && !got_scan) 
-      {
-	// Wait until the start sequence 0x5A, 0xA5, 0x00, 0xC0 comes around
+    while (!shutting_down_ && !got_scan) 
+    {
+	// Wait until the start sequence 0xAA, 0xBB,0xCC,0xDD comes around
 	boost::asio::read(serial_, boost::asio::buffer(&temp_char,1));
 	
 	if(start_count == 0) {
@@ -97,7 +114,20 @@ namespace xv_11_laser_driver {
 	    boost::asio::read(serial_,boost::asio::buffer(&raw_bytes2,4));
 	    boost::asio::read(serial_,boost::asio::buffer(&raw_bytes,720));
 	    
+		status_word = (uint16_t)raw_bytes2[0] + ((uint16_t)raw_bytes2[1] << 8);
 	    scan_time = (uint16_t)raw_bytes2[2] + ((uint16_t)raw_bytes2[3] << 8);
+		
+		if ((status_word & STATUS_WORD_LIDAR4_MASK) != 0)
+		{
+			//Lidar 4 mode
+			max_distance = 4.0;
+			static_angular_offset = 0;
+		}
+		else
+		{
+			max_distance = 5.0;
+			static_angular_offset = LIDAR3_ANG_OFFSET;
+		}
 	
 	    scan->angle_min = 0.0;
 	    scan->angle_max = 2.0*M_PI;
@@ -106,72 +136,61 @@ namespace xv_11_laser_driver {
 	    scan->time_increment = scan_time*0.001/360.0;
 	    scan->scan_time = scan_time*0.001;//seconds
 	    scan->range_min = 0.16;
-	    scan->range_max = 5.0;
+	    scan->range_max = max_distance;
 	    scan->ranges.reserve(360);
 	    scan->intensities.reserve(360);
 	    bad_data_flag = 0;
 	    
-	    for (i=0;i<360;i++)
-	    {
-	    	dist_scan[i] = 0.0;
-	    }
 
 	    for(i = 0; i < (360*2); i=i+2)
 	    {
-	      offset1 = (int16_t)(i/2); //(0-359)
+	      offset1 = i/2; //(0-359)
 	      // Two bytes per reading
 	      byte0 = raw_bytes[i];
 	      byte1 = raw_bytes[i+1];
-	      pix = (uint16_t)byte0 + ((uint16_t)byte1 * 256);
+	      pix = (uint16_t)byte0 + ((uint16_t)byte1 << 8);
 
-	      //if ((pix < 200)) {pix = 0;}
-	      //if (pix > 16383) {pix = 0;}
-	      pix = pix & 16383;
-
-	      dist = (-0.058) / (tan(((double)pix)*0.0000367 - 0.415));//Distance calculation formula
+	      if ((pix < 20)) {pix = 0;}
+	      if (pix > 16383) {pix = 0;}
+	      //pix = pix & 16383;
 	      
-	      if ((dist > 0.16) && (dist < 4.0))
-	      {
-		ang_corr = (int16_t)(atan(0.03/dist) * 180.0 / 3.14159 + offset1 * 4.0 / 360.0);//in deg
-		offset2 = offset1 + ang_corr;
-		if (offset2 > 359) {offset2 = offset2 - 360;}
-		if (offset2 < 0) {offset2 = 360 + offset2;}
-		dist_scan[(uint16_t)offset2] = dist;
-	      }
-	      else
-	      {
-	      	//dist = 0.0;
+	      //dist = (-0.055) / (tan(((double)pix)*0.00004993 - 0.445)); //lidar3  - OpenLidar
+          dist = base_coef / (tan(((double)pix)*a_coef - b_coef));
+		  
+		  
+		  if ((dist > 0.16) && (dist < max_distance))
+		  {
+			double h_base = fabs(base_coef) / 2;
+	        ang_corr = (uint16_t)(atan(h_base/dist) * 180.0 / M_PI);//Angular correction
+			offset2 = (int16_t)offset1 + (int16_t)ang_corr + static_angular_offset;
+			if (offset2 > 359) 
+				offset2 = offset2 - 360;
+			if (offset2 < 0) 
+				offset2 = 360 + offset2;
+			dist_scan[(uint16_t)offset2] = dist;  
+		  }
+		  else
+		  {
+			//dist = 0.0;
 	      	//offset2 = offset1;
-	      }
-		//ROS_DEBUG("%d, %f, %d, %d", offset1, dist, offset2, ang_corr);
-	      
-	      
+		  }
 	    }
-	    
 	    
 	    //dist_scan[359] = 0;
 	    dist_scan[0] = 0;
 	    dist_scan[1] = 0;
 	    
-	    //byte0 = raw_bytes[720];
-	    //byte1 = raw_bytes[721];
-	    //pix = (uint16_t)byte0 + ((uint16_t)byte1 << 8);
-	    
-	    //ROS_INFO_STREAM("test1 " << (uint16_t)raw_bytes[720]);
-	    //ROS_INFO_STREAM("test2 " << (uint16_t)raw_bytes[721]);
-	    //if (pix!= 0x1234) {bad_data_flag = 1;}//check data
-	    
 	    if (bad_data_flag == 0)
 	    {
 	    	for (i = 0; i < 360; i++)
 	    	{
-	    		dist = dist_scan[i];
+				dist = dist_scan[i];
 	    		scan->ranges.push_back(dist);
 	      		scan->intensities.push_back(0);
 
-			dist_scan[i] = 0;
-			raw_bytes[i*2] = 0;
-			raw_bytes[i*2+1] = 0;
+				dist_scan[i] = 0;
+				raw_bytes[i*2] = 0;
+				raw_bytes[i*2+1] = 0;
 	    	}
 	    }
 	    else
@@ -179,9 +198,9 @@ namespace xv_11_laser_driver {
 	    	ROS_ERROR("Bad data from LIDAR");
 	    	for (i = 0; i < 360; i++)
 	    	{
-			dist_scan[i] = 0;
-			raw_bytes[i*2] = 0;
-			raw_bytes[i*2+1] = 0;
+				dist_scan[i] = 0;
+				raw_bytes[i*2] = 0;
+				raw_bytes[i*2+1] = 0;
 	    	}
 	    }//end of if (bad_data_flag == 0)
 	      
@@ -192,5 +211,5 @@ namespace xv_11_laser_driver {
 	
       }//end while
       
-  }//end of XV11Laser::poll
+  }//end of LidarParser::poll
 };

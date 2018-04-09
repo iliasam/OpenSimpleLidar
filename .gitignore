@@ -16,3 +16,7 @@ Firmware/lidar4_main_code/EWARM/Output/Obj/
 PCB/CommonPCB_v1.2/Project/History/
 PCB/CommonPCB_v1.2/Project/Project Outputs for Lidar_PCB_Project/
 PCB/CommonPCB_v1.2/Project/__Previews/
+ROS/roomba_lidar/build/
+ROS/roomba_lidar/bin/
+ROS/roomba_lidar/lib/
+ROS/roomba_lidar/ROS_NOBUILD

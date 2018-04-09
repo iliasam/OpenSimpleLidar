@@ -6,7 +6,7 @@ DMA_InitTypeDef			DMA_InitStructure;
 
 extern volatile uint16_t 	data_adc_laser0[CAPTURED_POINTS_CNT];
 
-void init_clk(void);
+
 void init_gpio(void);
 void init_spi(void);
 void init_adc(void);
@@ -24,8 +24,11 @@ void init_all_periph(void)
 {
  
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
-  init_clk();
   init_gpio();
+  
+  switch_led(1);
+  delay_ms(1000);
+  
   init_uart1();
   
   timer1_init();//used to generate CLK pulses
