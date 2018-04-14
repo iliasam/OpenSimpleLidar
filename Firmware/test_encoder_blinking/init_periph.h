@@ -46,31 +46,10 @@ typedef enum
 #define UART_TX_PORT    GPIOA
 #define UART_TX_PINSOURCE       GPIO_PinSource2
 
-#define UART_TX_DMA_CHANNEL     DMA1_Channel2
-
-#define ADC_DMA_CHANNEL         DMA1_Channel1
-
-
 void init_all_periph(void);
 void init_clk(void);
 void init_gpio(void);
-void init_spi(void);
-
-void dma_config(uint16_t* pointer);
-void capture_start(uint16_t* pointer);
-void ext_int_init(void);
-void timer1_init(void);
-void timer2_init(void);
-void init_adc(void);
-void adc_dma_init(void);
-void uart_dma_init(void);
-void small_delay(void);
-void init_clk_pin(ClkPinType pin_type);
-void init_uart1(void);
-void enable_laser(void);
-void disable_laser(void);
 void switch_led(uint8_t val);
-
 void Delay_ms(uint32_t ms);
 
 #endif

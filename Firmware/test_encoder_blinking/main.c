@@ -6,7 +6,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "init_periph.h"
-#include "uart_handler.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -19,8 +18,16 @@ int main(void)
 {
   init_all_periph();
   
-  switch_led(1);
+  // Blinkng LED
+  for (uint8_t i = 0; i < 10; i++)
+  {
+    switch_led(1);
+    Delay_ms(300);
+    switch_led(0);
+    Delay_ms(300);
+  }
   
+  // Analyse encoder line
   while (1)
   {
     if  (GPIO_ReadInputDataBit(ENCODER_PORT, ENCODER_PIN) == Bit_RESET)
