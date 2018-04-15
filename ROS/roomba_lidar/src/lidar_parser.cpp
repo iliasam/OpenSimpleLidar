@@ -70,146 +70,152 @@ namespace tr_lidar_driver
     double dist_scan[360];
     uint16_t offset1;
     int16_t offset2;
-    uint16_t ang_corr;
+    int16_t ang_corr1;
+    int16_t ang_corr2;
     int bad_data_flag = 0;
     
     uint16_t i;
-    
+
     uint8_t byte0;
     uint8_t byte1;
-    
+
     uint16_t scan_time = 0;
-	uint16_t status_word = 0;
-	
-	double max_distance = 5.0;//meters
-	int16_t static_angular_offset = LIDAR3_ANG_OFFSET;//deg
-    
-	
+    uint16_t status_word = 0;
+
+    double max_distance = 5.0;//meters
+    int16_t static_angular_offset = LIDAR3_ANG_OFFSET;//deg
+
     boost::array<uint8_t, 724> raw_bytes;
     boost::array<uint8_t, 4> raw_bytes2;
-      
+    
     while (!shutting_down_ && !got_scan) 
     {
-	// Wait until the start sequence 0xAA, 0xBB,0xCC,0xDD comes around
-	boost::asio::read(serial_, boost::asio::buffer(&temp_char,1));
-	
-	if(start_count == 0) {
-	  if(temp_char == 0xAA) {start_count = 1;} else {start_count = 0;}
-	} 
-	else if(start_count == 1) {
-	  if(temp_char == 0xBB) {start_count = 2;} else {start_count = 0;}
-	} 
-	else if(start_count == 2) {
-	  if(temp_char == 0xCC) {start_count = 3;} else {start_count = 0;}
-	} 
-	else if(start_count == 3) 
-	{
-	  if(temp_char == 0xDD) 
-	  {
-	    start_count = 0;
-	    // Now that entire start sequence has been found, read in the rest of the message
-	    got_scan = true;
-	    // 728 - 4header = 724bytes
-	    //724 - 4info = 720bytes (360*2 = 720)
-	    boost::asio::read(serial_,boost::asio::buffer(&raw_bytes2,4));
-	    boost::asio::read(serial_,boost::asio::buffer(&raw_bytes,720));
-	    
-		status_word = (uint16_t)raw_bytes2[0] + ((uint16_t)raw_bytes2[1] << 8);
-	    scan_time = (uint16_t)raw_bytes2[2] + ((uint16_t)raw_bytes2[3] << 8);
-		
-		if ((status_word & STATUS_WORD_LIDAR4_MASK) != 0)
-		{
-			//Lidar 4 mode
-			max_distance = 4.0;
-			static_angular_offset = 0;
-		}
-		else
-		{
-			max_distance = 5.0;
-			static_angular_offset = LIDAR3_ANG_OFFSET;
-		}
-	
-	    scan->angle_min = 0.0;
-	    scan->angle_max = 2.0*M_PI;
-	    scan->angle_increment = (2.0*M_PI/360.0);
-	    //scan->time_increment = 1.0/(360.0*3.0);//1 sec
-	    scan->time_increment = scan_time*0.001/360.0;
-	    scan->scan_time = scan_time*0.001;//seconds
-	    scan->range_min = 0.16;
-	    scan->range_max = max_distance;
-	    scan->ranges.reserve(360);
-	    scan->intensities.reserve(360);
-	    bad_data_flag = 0;
+        // Wait until the start sequence 0xAA, 0xBB,0xCC,0xDD comes around
+        boost::asio::read(serial_, boost::asio::buffer(&temp_char,1));
+    
+        if(start_count == 0) 
+        {
+            if(temp_char == 0xAA) {start_count = 1;} else {start_count = 0;}
+        } 
+        else if(start_count == 1) 
+        {
+            if(temp_char == 0xBB) {start_count = 2;} else {start_count = 0;}
+        } 
+        else if(start_count == 2)
+        {
+            if(temp_char == 0xCC) {start_count = 3;} else {start_count = 0;}
+        } 
+        else if(start_count == 3) 
+        {
+            if(temp_char == 0xDD) 
+            {
+                start_count = 0;
+                // Now that entire start sequence has been found, read in the rest of the message
+                got_scan = true;
+                // 728 - 4header = 724bytes
+                //724 - 4info = 720bytes (360*2 = 720)
+                boost::asio::read(serial_,boost::asio::buffer(&raw_bytes2,4));
+                boost::asio::read(serial_,boost::asio::buffer(&raw_bytes,720));
+
+                status_word = (uint16_t)raw_bytes2[0] + ((uint16_t)raw_bytes2[1] << 8);
+                scan_time = (uint16_t)raw_bytes2[2] + ((uint16_t)raw_bytes2[3] << 8);
+
+                if ((status_word & STATUS_WORD_LIDAR4_MASK) != 0)
+                {
+                    //Lidar 4 mode
+                    max_distance = 4.0;
+                    static_angular_offset = 0;
+                }
+                else
+                {
+                    max_distance = 5.0;
+                    static_angular_offset = LIDAR3_ANG_OFFSET;
+                }
+
+                scan->angle_min = 0.0;
+                scan->angle_max = 2.0*M_PI;
+                scan->angle_increment = (2.0*M_PI/360.0);
+                //scan->time_increment = 1.0/(360.0*3.0);//1 sec
+                scan->time_increment = scan_time*0.001/360.0;
+                scan->scan_time = scan_time*0.001;//seconds
+                scan->range_min = 0.16;
+                scan->range_max = max_distance;
+                scan->ranges.reserve(360);
+                scan->intensities.reserve(360);
+                bad_data_flag = 0;
 	    
 
-	    for(i = 0; i < (360*2); i=i+2)
-	    {
-	      offset1 = i/2; //(0-359)
-	      // Two bytes per reading
-	      byte0 = raw_bytes[i];
-	      byte1 = raw_bytes[i+1];
-	      pix = (uint16_t)byte0 + ((uint16_t)byte1 << 8);
+                for(i = 0; i < (360*2); i=i+2)
+                {
+                  offset1 = i/2; //(0-359)
+                  // Two bytes per reading
+                  byte0 = raw_bytes[i];
+                  byte1 = raw_bytes[i+1];
+                  pix = (uint16_t)byte0 + ((uint16_t)byte1 << 8);
 
-	      if ((pix < 20)) {pix = 0;}
-	      if (pix > 16383) {pix = 0;}
-	      //pix = pix & 16383;
-	      
-	      //dist = (-0.055) / (tan(((double)pix)*0.00004993 - 0.445)); //lidar3  - OpenLidar
-          dist = base_coef / (tan(((double)pix)*a_coef - b_coef));
-		  
-		  
-		  if ((dist > 0.16) && (dist < max_distance))
-		  {
-			double h_base = fabs(base_coef) / 2;
-	        ang_corr = (uint16_t)(atan(h_base/dist) * 180.0 / M_PI);//Angular correction
-			offset2 = (int16_t)offset1 + (int16_t)ang_corr + static_angular_offset;
-			if (offset2 > 359) 
-				offset2 = offset2 - 360;
-			if (offset2 < 0) 
-				offset2 = 360 + offset2;
-			dist_scan[(uint16_t)offset2] = dist;  
-		  }
-		  else
-		  {
-			//dist = 0.0;
-	      	//offset2 = offset1;
-		  }
-	    }
-	    
-	    //dist_scan[359] = 0;
-	    dist_scan[0] = 0;
-	    dist_scan[1] = 0;
-	    
-	    if (bad_data_flag == 0)
-	    {
-	    	for (i = 0; i < 360; i++)
-	    	{
-				dist = dist_scan[i];
-	    		scan->ranges.push_back(dist);
-	      		scan->intensities.push_back(0);
+                  if ((pix < 20)) {pix = 0;}
+                  if (pix > 16383) {pix = 0;}
+                  //pix = pix & 16383;
+                  
+                  //dist = (-0.055) / (tan(((double)pix)*0.00004993 - 0.445)); //lidar3  - OpenLidar
+                  dist = base_coef / (tan(((double)pix)*a_coef - b_coef));
+                  
+                  if ((dist > 0.16) && (dist < max_distance))
+                  {
+                    double h_base = fabs(base_coef) / 2;
+                    ang_corr1 = (int16_t)(atan(h_base/dist) * 180.0 / M_PI);//Angular correction
+                    ang_corr2 = (int16_t)(angular_corr * (double)offset1);
+                    offset2 = (int16_t)offset1 + ang_corr1 + ang_corr2 + static_angular_offset;
+                    if (offset2 > 359) 
+                        offset2 = offset2 - 360;
+                    if (offset2 < 0) 
+                        offset2 = 360 + offset2;
+                    dist_scan[(uint16_t)offset2] = dist;  
+                  }
+                  else
+                  {
+                    //dist = 0.0;
+                    //offset2 = offset1;
+                  }
+                }
 
-				dist_scan[i] = 0;
-				raw_bytes[i*2] = 0;
-				raw_bytes[i*2+1] = 0;
-	    	}
-	    }
-	    else
-	    {
-	    	ROS_ERROR("Bad data from LIDAR");
-	    	for (i = 0; i < 360; i++)
-	    	{
-				dist_scan[i] = 0;
-				raw_bytes[i*2] = 0;
-				raw_bytes[i*2+1] = 0;
-	    	}
-	    }//end of if (bad_data_flag == 0)
-	      
-	  }//end of if(temp_char == 0xDD)
-	  else {start_count = 0;}
-	}//end of if(start_count == 3)
-	else {start_count = 0;}
-	
-      }//end while
+                //dist_scan[359] = 0;
+                dist_scan[0] = 0;
+                dist_scan[1] = 0;
+
+                if (bad_data_flag == 0)
+                {
+                    for (i = 0; i < 360; i++)
+                    {
+                        dist = dist_scan[i];
+                        scan->ranges.push_back(dist);
+                        scan->intensities.push_back(0);
+
+                        dist_scan[i] = 0;
+                        raw_bytes[i*2] = 0;
+                        raw_bytes[i*2+1] = 0;
+                    }
+                }
+                else
+                {
+                    ROS_ERROR("Bad data from LIDAR");
+                    for (i = 0; i < 360; i++)
+                    {
+                        dist_scan[i] = 0;
+                        raw_bytes[i*2] = 0;
+                        raw_bytes[i*2+1] = 0;
+                    }
+                }//end of if (bad_data_flag == 0)
+
+            }//end of if(temp_char == 0xDD)
+            else 
+                start_count = 0;
+            
+        }//end of if(start_count == 3)
+        else 
+            start_count = 0;
+
+    }//end while
       
   }//end of LidarParser::poll
 };

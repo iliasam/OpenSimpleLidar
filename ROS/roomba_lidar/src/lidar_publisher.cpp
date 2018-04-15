@@ -52,6 +52,8 @@ int main(int argc, char **argv)
   double loc_a_coef;
   double loc_b_coef;
   double loc_base_coef;
+
+  double loc_angular_corr;
   
 
   priv_nh.param("port", port, std::string("/dev/ttyUSB0"));
@@ -62,6 +64,7 @@ int main(int argc, char **argv)
   priv_nh.param("a_coef", loc_a_coef, 0.00005078);
   priv_nh.param("b_coef", loc_b_coef, 0.454);
   priv_nh.param("base_coef", loc_base_coef, -0.055);
+  priv_nh.param("angular_corr", loc_angular_corr, 0.0);
 
   boost::asio::io_service io;
 
@@ -70,6 +73,8 @@ int main(int argc, char **argv)
     laser.a_coef = loc_a_coef;
     laser.b_coef = loc_b_coef;
     laser.base_coef = loc_base_coef;
+    laser.angular_corr = loc_angular_corr;
+ 
     ros::Publisher laser_pub = n.advertise<sensor_msgs::LaserScan>("scan", 1000);
     ROS_INFO("ILIASAM laser started");
 

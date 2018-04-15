@@ -71,6 +71,7 @@ namespace tr_lidar_driver
 	    double a_coef;
             double b_coef;
             double base_coef;
+	    double angular_corr;
 
         private:
             std::string port_; ///< @brief The serial port the driver is attached to
