@@ -18,4 +18,7 @@ Some of it I'm writing to the project wiki: https://github.com/iliasam/OpenSimpl
 
 Some more info: https://hackaday.io/project/20628-opensimplelidar  
 
+Video of using OpenSimpleLidar for Autonomous Robot Navigation:
+https://www.youtube.com/watch?v=YHt_NTktmlA
+
 See also my another Lidar project: https://github.com/iliasam/OpenLIDAR
