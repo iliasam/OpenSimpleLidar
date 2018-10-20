@@ -1,7 +1,9 @@
 # OpenSimpleLidar
 Open Hardware scanning laser rangefinder. 
 
-It is really cheap - its components cost less than $35. 
+It is really cheap - its components cost less than $35.  
+
+[Please take the simpe survey about assembling instructions](https://docs.google.com/forms/d/127PN3ydydF8poReQAPeC-vXDqIst-CIAj8u08tnh1lM)  
 
 ![Alt text](Misc/Photo_of_LIDAR1.jpg?raw=true "Image")
 
