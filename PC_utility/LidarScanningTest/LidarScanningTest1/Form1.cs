@@ -51,6 +51,12 @@ namespace LidarScanningTest1
 
         RadarPoint[] RadarPoints = new RadarPoint[400];
 
+        // Distance calculation coefficients
+        double curr_coeff_a = 0;
+        double curr_coeff_b = 0;
+        double curr_base_length = 5.8;
+        double curr_angular_correction = 4;//degrees
+
 
         public Form1()
         {
@@ -78,6 +84,21 @@ namespace LidarScanningTest1
                 cmbPortList.Text = serial_name;
             }
 
+            //Load calibration coefficients
+            string coef_a_str = settings_holder.GetSetting("LIDAR_SETTINGS", "coef_a");
+            string coef_b_str = settings_holder.GetSetting("LIDAR_SETTINGS", "coef_b");
+            string base_length_str = settings_holder.GetSetting("LIDAR_SETTINGS", "base_length");
+            string ang_corr_str = settings_holder.GetSetting("LIDAR_SETTINGS", "angular_corr");
+
+            double coef_a = Convert.ToDouble(coef_a_str, System.Globalization.CultureInfo.InvariantCulture);
+            double coef_b = Convert.ToDouble(coef_b_str, System.Globalization.CultureInfo.InvariantCulture);
+            curr_base_length = Convert.ToDouble(base_length_str, System.Globalization.CultureInfo.InvariantCulture);
+            curr_angular_correction = Convert.ToDouble(ang_corr_str, System.Globalization.CultureInfo.InvariantCulture);
+
+            numCoeffA.Value = (decimal)coef_a;
+            numCoeffB.Value = (decimal)coef_b;
+            numAngCorrection.Value = (decimal)curr_angular_correction;
+
             timer1.Enabled = true;
         }
 
@@ -85,6 +106,10 @@ namespace LidarScanningTest1
         {
             if (DataParser.data_pending == true)
             {
+                curr_coeff_a = (double)numCoeffA.Value;
+                curr_coeff_b = (double)numCoeffB.Value;
+                curr_angular_correction = (double)numAngCorrection.Value;
+
                 int[] rx_data = DataParser.get_received_data();
                 ProcessRxData(rx_data);
                 lblPacketCnt.Text = "Packets count: " + DataParser.total_packets;
@@ -138,7 +163,7 @@ namespace LidarScanningTest1
                 if (offset1_deg > 359)
                     offset1_deg = offset1_deg - 360;
 
-                offset2_deg = (double)i / 360.0 * 5.0;//degrees
+                offset2_deg = (double)i / 360.0 * curr_angular_correction;//degrees
                 ofset3_rad = Math.Atan(0.03 / dist);//radians
                 angle_rad = (double)(offset1_deg + offset2_deg  + ang5) / 180.0 * (Math.PI) + ofset3_rad;
 
@@ -163,14 +188,11 @@ namespace LidarScanningTest1
         {
             double dist2 = 0;//value in cm
 
-            //if (pixel > 16384) pixel = pixel-16384;
-
             pixel = pixel & 16383;
 
             if (pixel > 50)
             {
-                dist2 = (-5.8) / Math.Tan((double)(pixel) * 0.0000367 - 0.415);//lidar4 -ok
-                dist2 = (-5.8) / Math.Tan((double)(pixel) * 0.0000367 - 0.417);//lidar4
+                dist2 = (-curr_base_length) / Math.Tan((double)(pixel) * curr_coeff_a - curr_coeff_b); //<<<<<<<<<<<<<<<<
             }
             else
                 dist2 = 0;
@@ -308,6 +330,17 @@ namespace LidarScanningTest1
             return array;
         }
 
+        private void btnSaveCoeff_Click(object sender, EventArgs e)
+        {
+            string coef_a_str = curr_coeff_a.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string coef_b_str = curr_coeff_b.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string ang_corr_str = curr_angular_correction.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
+            settings_holder.AddSetting("LIDAR_SETTINGS", "coef_a", coef_a_str);
+            settings_holder.AddSetting("LIDAR_SETTINGS", "coef_b", coef_b_str);
+            settings_holder.AddSetting("LIDAR_SETTINGS", "angular_corr", ang_corr_str);
+
+            settings_holder.SaveSettings();
+        }
     }
 }

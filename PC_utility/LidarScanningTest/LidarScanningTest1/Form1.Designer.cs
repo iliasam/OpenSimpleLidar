@@ -39,14 +39,22 @@
             this.lblScanPeriod = new System.Windows.Forms.Label();
             this.lblScanFreq = new System.Windows.Forms.Label();
             this.radarPlotComponent1 = new LidarScanningTest1.RadarPlotComponent();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numCoeffA = new System.Windows.Forms.NumericUpDown();
+            this.numCoeffB = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numAngCorrection = new System.Windows.Forms.NumericUpDown();
+            this.btnSaveCoeff = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCoeffA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCoeffB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAngCorrection)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.cmbPortList);
             this.groupBox1.Controls.Add(this.btnOpenClose);
             this.groupBox1.Location = new System.Drawing.Point(9, 10);
@@ -91,7 +99,7 @@
             this.lblPacketCnt});
             this.statusStrip1.Location = new System.Drawing.Point(0, 637);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(694, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(917, 25);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -127,14 +135,127 @@
             this.radarPlotComponent1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.radarPlotComponent1.Location = new System.Drawing.Point(11, 78);
             this.radarPlotComponent1.Name = "radarPlotComponent1";
-            this.radarPlotComponent1.Size = new System.Drawing.Size(658, 516);
+            this.radarPlotComponent1.Size = new System.Drawing.Size(894, 552);
             this.radarPlotComponent1.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(497, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 17);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Coeff A:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(497, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 17);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Coeff B:";
+            // 
+            // numCoeffA
+            // 
+            this.numCoeffA.DecimalPlaces = 7;
+            this.numCoeffA.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            458752});
+            this.numCoeffA.Location = new System.Drawing.Point(561, 19);
+            this.numCoeffA.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCoeffA.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numCoeffA.Name = "numCoeffA";
+            this.numCoeffA.Size = new System.Drawing.Size(100, 22);
+            this.numCoeffA.TabIndex = 7;
+            // 
+            // numCoeffB
+            // 
+            this.numCoeffB.DecimalPlaces = 3;
+            this.numCoeffB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numCoeffB.Location = new System.Drawing.Point(561, 47);
+            this.numCoeffB.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCoeffB.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numCoeffB.Name = "numCoeffB";
+            this.numCoeffB.Size = new System.Drawing.Size(100, 22);
+            this.numCoeffB.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(671, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 17);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Angul. corr.:";
+            // 
+            // numAngCorrection
+            // 
+            this.numAngCorrection.DecimalPlaces = 1;
+            this.numAngCorrection.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numAngCorrection.Location = new System.Drawing.Point(762, 19);
+            this.numAngCorrection.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numAngCorrection.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.numAngCorrection.Name = "numAngCorrection";
+            this.numAngCorrection.Size = new System.Drawing.Size(68, 22);
+            this.numAngCorrection.TabIndex = 10;
+            // 
+            // btnSaveCoeff
+            // 
+            this.btnSaveCoeff.Location = new System.Drawing.Point(836, 12);
+            this.btnSaveCoeff.Name = "btnSaveCoeff";
+            this.btnSaveCoeff.Size = new System.Drawing.Size(68, 53);
+            this.btnSaveCoeff.TabIndex = 11;
+            this.btnSaveCoeff.Text = "Save Coeff.";
+            this.btnSaveCoeff.UseVisualStyleBackColor = true;
+            this.btnSaveCoeff.Click += new System.EventHandler(this.btnSaveCoeff_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 662);
+            this.ClientSize = new System.Drawing.Size(917, 662);
+            this.Controls.Add(this.btnSaveCoeff);
+            this.Controls.Add(this.numAngCorrection);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.numCoeffB);
+            this.Controls.Add(this.numCoeffA);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.radarPlotComponent1);
             this.Controls.Add(this.lblScanFreq);
             this.Controls.Add(this.lblScanPeriod);
@@ -145,6 +266,9 @@
             this.groupBox1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCoeffA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCoeffB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAngCorrection)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,6 +286,13 @@
         private System.Windows.Forms.Label lblScanPeriod;
         private System.Windows.Forms.Label lblScanFreq;
         private RadarPlotComponent radarPlotComponent1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numCoeffA;
+        private System.Windows.Forms.NumericUpDown numCoeffB;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numAngCorrection;
+        private System.Windows.Forms.Button btnSaveCoeff;
     }
 }
 

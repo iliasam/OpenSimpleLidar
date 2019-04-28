@@ -12,9 +12,9 @@ namespace LidarScanningTest1
 {
     public partial class RadarPlotComponent : UserControl
     {
-        const int BOX_WIDTH = 400;
+        int BOX_WIDTH = 400;
 
-        Bitmap img = new Bitmap(BOX_WIDTH, BOX_WIDTH);
+        Bitmap img;
         Graphics g;
 
         int cur_radius = 350;//in cm
@@ -25,6 +25,7 @@ namespace LidarScanningTest1
 
             cmbRadiusList.Items.Add((double)3.5);
             cmbRadiusList.Items.Add((double)1.0);
+            cmbRadiusList.Items.Add((double)4.0);
             cmbRadiusList.Items.Add((double)5.0);
             cmbRadiusList.SelectedIndex = 0;
         }
@@ -32,6 +33,10 @@ namespace LidarScanningTest1
         public void DrawRadar(RadarPoint[] points)
         {
             int i = 0;
+
+            
+            BOX_WIDTH = GetImageSize();
+            img = new Bitmap(BOX_WIDTH, BOX_WIDTH);
 
             Pen lines_pen;
             
@@ -102,6 +107,15 @@ namespace LidarScanningTest1
             yy = y / (((double)cur_radius / 100)) * ((double)(BOX_WIDTH / 2));
 
             g.DrawEllipse(cur_pen, (float)(BOX_WIDTH / 2 + xx), (float)(BOX_WIDTH / 2 - yy), 1 * 2, 1 * 2);
+        }
+
+        int GetImageSize()
+        {
+            int height = pictureBox1.Height;
+            int width = pictureBox1.Width;
+
+            int min_val = Math.Min(height, width);
+            return min_val;
         }
     }
 }

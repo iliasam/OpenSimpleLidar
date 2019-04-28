@@ -69,8 +69,8 @@
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Padding = new System.Windows.Forms.Padding(0, 0, 100, 100);
-            this.pictureBox1.Size = new System.Drawing.Size(524, 511);
+            this.pictureBox1.Size = new System.Drawing.Size(689, 511);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -89,8 +89,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.chkBlackMode);
             this.splitContainer1.Panel2.Controls.Add(this.cmbRadiusList);
-            this.splitContainer1.Size = new System.Drawing.Size(658, 511);
-            this.splitContainer1.SplitterDistance = 524;
+            this.splitContainer1.Size = new System.Drawing.Size(820, 511);
+            this.splitContainer1.SplitterDistance = 689;
             this.splitContainer1.TabIndex = 5;
             // 
             // RadarPlotComponent
@@ -99,7 +99,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "RadarPlotComponent";
-            this.Size = new System.Drawing.Size(658, 511);
+            this.Size = new System.Drawing.Size(820, 511);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
