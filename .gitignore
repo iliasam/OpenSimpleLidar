@@ -21,3 +21,5 @@ ROS/roomba_lidar/bin/
 ROS/roomba_lidar/lib/
 ROS/roomba_lidar/ROS_NOBUILD
 ~$TotalBOM.xlsx
+PC_utility/LidarScanningTest/LidarScanningTest1/obj/
+PC_utility/LidarScanningTest/LidarScanningTest1/bin/Debug/LidarScanningTest1.exe.config
