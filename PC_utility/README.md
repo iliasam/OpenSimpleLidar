@@ -7,3 +7,5 @@
 Values "Coeff A", "Coeff B" are calibration values. They are uniqe for every device.  
 Track bar allows to set "Ponter angle" - angle of the long yellow line.  
 Parameters of the point with that angle are displayed at "Data Analyse" group.  
+This utility is published with its source files.  
+"Exe" is placed here: https://github.com/iliasam/OpenSimpleLidar/tree/master/PC_utility/LidarScanningTest/LidarScanningTest1/bin/Debug
