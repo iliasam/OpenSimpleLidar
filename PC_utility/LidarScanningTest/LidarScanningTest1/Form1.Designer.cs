@@ -46,11 +46,20 @@
             this.label3 = new System.Windows.Forms.Label();
             this.numAngCorrection = new System.Windows.Forms.NumericUpDown();
             this.btnSaveCoeff = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblRawValue = new System.Windows.Forms.Label();
+            this.lblDistValue = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.lblAVRValue = new System.Windows.Forms.Label();
+            this.lblMaxMIn = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCoeffA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCoeffB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAngCorrection)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -99,7 +108,7 @@
             this.lblPacketCnt});
             this.statusStrip1.Location = new System.Drawing.Point(0, 637);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(917, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1072, 25);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -135,7 +144,7 @@
             this.radarPlotComponent1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.radarPlotComponent1.Location = new System.Drawing.Point(11, 78);
             this.radarPlotComponent1.Name = "radarPlotComponent1";
-            this.radarPlotComponent1.Size = new System.Drawing.Size(894, 552);
+            this.radarPlotComponent1.Size = new System.Drawing.Size(893, 552);
             this.radarPlotComponent1.TabIndex = 4;
             // 
             // label1
@@ -150,7 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(497, 48);
+            this.label2.Location = new System.Drawing.Point(497, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 17);
             this.label2.TabIndex = 6;
@@ -244,11 +253,101 @@
             this.btnSaveCoeff.UseVisualStyleBackColor = true;
             this.btnSaveCoeff.Click += new System.EventHandler(this.btnSaveCoeff_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.lblMaxMIn);
+            this.groupBox2.Controls.Add(this.lblAVRValue);
+            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.lblDistValue);
+            this.groupBox2.Controls.Add(this.lblRawValue);
+            this.groupBox2.Location = new System.Drawing.Point(912, 10);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(152, 261);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Data Analyse";
+            // 
+            // lblRawValue
+            // 
+            this.lblRawValue.AutoSize = true;
+            this.lblRawValue.Location = new System.Drawing.Point(10, 30);
+            this.lblRawValue.Name = "lblRawValue";
+            this.lblRawValue.Size = new System.Drawing.Size(106, 17);
+            this.lblRawValue.TabIndex = 0;
+            this.lblRawValue.Text = "Raw Value: N/A";
+            // 
+            // lblDistValue
+            // 
+            this.lblDistValue.AutoSize = true;
+            this.lblDistValue.Location = new System.Drawing.Point(10, 59);
+            this.lblDistValue.Name = "lblDistValue";
+            this.lblDistValue.Size = new System.Drawing.Size(94, 17);
+            this.lblDistValue.TabIndex = 1;
+            this.lblDistValue.Text = "Distance: N/A";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(27, 100);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(120, 38);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Number of analysed points:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Location = new System.Drawing.Point(39, 147);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(91, 22);
+            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // lblAVRValue
+            // 
+            this.lblAVRValue.AutoSize = true;
+            this.lblAVRValue.Location = new System.Drawing.Point(10, 198);
+            this.lblAVRValue.Name = "lblAVRValue";
+            this.lblAVRValue.Size = new System.Drawing.Size(92, 17);
+            this.lblAVRValue.TabIndex = 4;
+            this.lblAVRValue.Text = "Average: N/A";
+            // 
+            // lblMaxMIn
+            // 
+            this.lblMaxMIn.AutoSize = true;
+            this.lblMaxMIn.Location = new System.Drawing.Point(10, 228);
+            this.lblMaxMIn.Name = "lblMaxMIn";
+            this.lblMaxMIn.Size = new System.Drawing.Size(86, 17);
+            this.lblMaxMIn.TabIndex = 5;
+            this.lblMaxMIn.Text = "MaxMin: N/A";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(917, 662);
+            this.ClientSize = new System.Drawing.Size(1072, 662);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnSaveCoeff);
             this.Controls.Add(this.numAngCorrection);
             this.Controls.Add(this.label3);
@@ -269,6 +368,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCoeffA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCoeffB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAngCorrection)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,6 +395,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numAngCorrection;
         private System.Windows.Forms.Button btnSaveCoeff;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblRawValue;
+        private System.Windows.Forms.Label lblDistValue;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblAVRValue;
+        private System.Windows.Forms.Label lblMaxMIn;
     }
 }
 

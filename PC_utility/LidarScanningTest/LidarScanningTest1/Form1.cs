@@ -57,6 +57,8 @@ namespace LidarScanningTest1
         double curr_base_length = 5.8;
         double curr_angular_correction = 4;//degrees
 
+        DataAnalyseClass DataAnalyseObj = new DataAnalyseClass();
+
 
         public Form1()
         {
@@ -141,6 +143,25 @@ namespace LidarScanningTest1
             double freq = Math.Round(1.0 / (double)(RotationPeriod / 1000.0), 1);//ms -> sec
             lblScanPeriod.Text = "Scan Perod: " + RotationPeriod.ToString() + " ms";
             lblScanFreq.Text = "Scan Freq: " + freq.ToString() + " Hz";
+
+            AnalysePointerData();
+        }
+
+        void AnalysePointerData()
+        {
+            int pointer_angle = radarPlotComponent1.GetPointerAngle();
+
+            int raw_val = ScanPoints[pointer_angle].raw_value;
+            double dist = ScanPoints[pointer_angle].dist_m;
+
+            DataAnalyseObj.AddDataPoint(dist);
+
+            lblRawValue.Text = "Raw Value: " + raw_val.ToString();
+            lblDistValue.Text = "Distance: " + dist.ToString("0.00") + " m";
+
+            lblAVRValue.Text = "Average: " + DataAnalyseObj.average.ToString("0.00") + " m";
+
+            lblMaxMIn.Text = "MaxMin: " + DataAnalyseObj.min_max.ToString("0.00") + " m";
         }
 
         void CalculateRadarData()
@@ -341,6 +362,11 @@ namespace LidarScanningTest1
             settings_holder.AddSetting("LIDAR_SETTINGS", "angular_corr", ang_corr_str);
 
             settings_holder.SaveSettings();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            DataAnalyseObj.SetLength((int)numericUpDown1.Value);
         }
     }
 }

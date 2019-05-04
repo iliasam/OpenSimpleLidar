@@ -83,6 +83,10 @@ namespace LidarScanningTest1
                 draw_xy_point(cur_pen, points[i].x, points[i].y);
             }
 
+            int angle = trackBar1.Value / 2 * 2;
+            draw_centerd_line(yellow_pen, angle);
+
+
             pictureBox1.Image = img;
         }
 
@@ -109,6 +113,28 @@ namespace LidarScanningTest1
             g.DrawEllipse(cur_pen, (float)(BOX_WIDTH / 2 + xx), (float)(BOX_WIDTH / 2 - yy), 1 * 2, 1 * 2);
         }
 
+        void draw_centerd_line(Pen cur_pen, double angle_deg)
+        {
+            float length = 1000;//cm
+
+            float x_start = (float)(BOX_WIDTH / 2);
+            float y_start = (float)(BOX_WIDTH / 2);
+
+            angle_deg += 90;
+
+            float angle_rad = (float)(angle_deg * Math.PI / 180);
+            float x_end = (float)(length * Math.Cos(angle_rad));
+            float y_end = (float)(length * Math.Sin(angle_rad));
+
+            x_end = x_end / (((float)cur_radius / 100)) * ((float)(BOX_WIDTH / 2));//pixels from center
+            y_end = y_end / (((float)cur_radius / 100)) * ((float)(BOX_WIDTH / 2));//pixels from center
+
+            x_end = x_start + x_end;
+            y_end = y_start - y_end;
+
+            g.DrawLine(cur_pen, x_start, y_start, x_end, y_end);
+        }
+
         int GetImageSize()
         {
             int height = pictureBox1.Height;
@@ -116,6 +142,18 @@ namespace LidarScanningTest1
 
             int min_val = Math.Min(height, width);
             return min_val;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int angle = trackBar1.Value / 2 * 2;
+            lblPointerAnle.Text = "Pointer angle, deg: " + angle.ToString();
+        }
+
+        public int GetPointerAngle()
+        {
+            int angle = trackBar1.Value / 2 * 2;
+            return angle;
         }
     }
 }

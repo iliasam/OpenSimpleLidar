@@ -26,11 +26,14 @@
             this.chkBlackMode = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblPointerAnle = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbRadiusList
@@ -77,6 +80,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -86,12 +90,35 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.trackBar1);
+            this.splitContainer1.Panel2.Controls.Add(this.lblPointerAnle);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.chkBlackMode);
             this.splitContainer1.Panel2.Controls.Add(this.cmbRadiusList);
             this.splitContainer1.Size = new System.Drawing.Size(820, 511);
             this.splitContainer1.SplitterDistance = 689;
             this.splitContainer1.TabIndex = 5;
+            // 
+            // lblPointerAnle
+            // 
+            this.lblPointerAnle.Location = new System.Drawing.Point(11, 135);
+            this.lblPointerAnle.Name = "lblPointerAnle";
+            this.lblPointerAnle.Size = new System.Drawing.Size(100, 35);
+            this.lblPointerAnle.TabIndex = 6;
+            this.lblPointerAnle.Text = "Pointer angle, deg: 0";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.LargeChange = 10;
+            this.trackBar1.Location = new System.Drawing.Point(12, 178);
+            this.trackBar1.Maximum = 358;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(56, 319);
+            this.trackBar1.SmallChange = 2;
+            this.trackBar1.TabIndex = 7;
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // RadarPlotComponent
             // 
@@ -106,6 +133,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -116,5 +144,7 @@
         private System.Windows.Forms.CheckBox chkBlackMode;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label lblPointerAnle;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
