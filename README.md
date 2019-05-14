@@ -8,8 +8,11 @@ Now I'm updating the documentation for this LIDAR.
 Some of it I'm writing to the project wiki: https://github.com/iliasam/OpenSimpleLidar/wiki  
 
 [Please take the simple survey about assembling instructions](https://docs.google.com/forms/d/127PN3ydydF8poReQAPeC-vXDqIst-CIAj8u08tnh1lM)  
-
+  
 ![Alt text](Misc/Photo_of_LIDAR1.jpg?raw=true "Image")
+  
+Utility for displaying "radar" scans from the working Lidar:  
+![Alt text](/PC_utility/LidarScanningTest/scanning_screenshot.png?raw=true "Image")  
 
 Example of Hector SLAM working with this Lidar:  
 ![Alt text](Misc/hector_slam_map_test1.png?raw=true "Image")
