@@ -1,7 +1,12 @@
 # OpenSimpleLidar
-Open Hardware scanning laser rangefinder. 
+Open Hardware scanning laser rangefinder.  
+Its parameters:  
+* 5 scans/second
+* 180 measurements per rotation (2 deg anglular resolution)
+* Maximum distance - 4 m
+* Measured accuracy ~3-5 cm at 3 m (depends upon the color of reflecting surface).
 
-It is really cheap - its components cost less than $30.  
+This device is really cheap - its components cost less than $30.  
 See "TotalBOM" with price calculations.  
   
 Now I'm updating the documentation for this LIDAR.  
