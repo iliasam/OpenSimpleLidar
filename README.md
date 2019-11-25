@@ -34,4 +34,4 @@ https://www.youtube.com/watch?v=YHt_NTktmlA
 
 See also my previous Lidar project: https://github.com/iliasam/OpenLIDAR
 
-Please leave your feedback if you will be able to build his Lidar - I need more feedback about assembing instructions.
+Please leave your feedback if you will be able to build this Lidar - I need more feedback about assembing instructions.
