@@ -1,4 +1,4 @@
-"test_encoder_blinking" - Testing code - link LED several times after power up, and then blinking LED when encoder evert occurs.   
+"test_encoder_blinking" - Testing code - link LED several times after power up, and then blinking LED when encoder event occurs.   
 "test1_capture_image" - Testing code - capture image from linear image sensor and send it to PC.  
 "test2_capture_image" - Testing code - the same as "test1_capture_image" but laser is ON most of the time. This is MORE dangerous for eyes than is "test1_capture_image"!  
 "lidar4_main_code" - Main LIDAR firmware.  
