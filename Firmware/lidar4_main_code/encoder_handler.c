@@ -57,12 +57,13 @@ void TIM17_IRQHandler(void)
     TIM_ClearITPendingBit(ENC_TIM_NAME, TIM_IT_CC1);
     capture_old = capture_now;
     capture_now = get_encoder_timer_value();
-    
+    uint16_t capture_old_non_volatile = capture_old;
+
     //Overflow controlling
-    if (capture_now >= capture_old) 
-      enc_period = capture_now - capture_old;
-    else 
-      enc_period = 0xFFFF - capture_old + capture_now;
+    if (capture_now >= capture_old_non_volatile)
+      enc_period = capture_now - capture_old_non_volatile;
+    else
+      enc_period = 0xFFFF - capture_old_non_volatile + capture_now;
 
 #ifdef TWO_DEG_MODE
     if (enc_period < (MIN_ENC_TIME / 2))
@@ -98,10 +99,12 @@ void TIM17_IRQHandler(void)
       
       zero_old = zero_now;
       zero_now = get_encoder_timer_value();
-      if (zero_now >= zero_old) 
-        rot_period = (zero_now - zero_old) / (TIMERS_FREQUENCY / KILO_CONST);
-      else 
-        rot_period = (0xFFFF - zero_old + zero_now) / (TIMERS_FREQUENCY / KILO_CONST);
+      uint16_t zero_old_non_volatile = zero_old;
+
+      if (zero_now >= zero_old_non_volatile)
+        rot_period = (zero_now - zero_old_non_volatile) / (TIMERS_FREQUENCY / KILO_CONST);
+      else
+        rot_period = (0xFFFF - zero_old_non_volatile + zero_now) / (TIMERS_FREQUENCY / KILO_CONST);
       
       if (rot_num != ENC_NUM)//(ENC_NUM-1) because of one absent mark
       {
@@ -238,7 +241,13 @@ uint8_t check_zero_point(uint16_t time)
   pos&= 3;
   avr_time = (times[0] + times[1] + times[2] + times[3]) / 4;
   time= time*4;
-  result = time / avr_time;
+  if (avr_time !=0)//do not use 0 as divisor
+  {
+    result = time / avr_time;
+  }else
+  {
+    result = time;
+  }
   if (result >= 5)
     return 1;
   else 
