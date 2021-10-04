@@ -2,8 +2,6 @@
 #include "main.h"
 #include "init_periph.h"
 
-DMA_InitTypeDef			DMA_InitStructure;
-
 extern volatile uint16_t 	data_adc_laser0[CAPTURED_POINTS_CNT];
 
 
