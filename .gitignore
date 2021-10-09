@@ -29,3 +29,5 @@ PCB/CommonPCB_v1.2M/Project/__Previews/
 Firmware/test2_capture_image/EWARM/Output/
 Firmware/test2_capture_image/EWARM/settings/
 Firmware/test2_capture_image/StdPeriphLib/
+*.cspy.ps1
+*.xcl
