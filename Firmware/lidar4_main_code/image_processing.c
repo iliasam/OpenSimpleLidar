@@ -16,11 +16,10 @@ extern volatile uint16_t* data_adc_off_p;  //pointer to raw data from ADC with d
 
 centroid_result_type find_centroid(void)
 {
-  uint8_t i;
-  uint8_t  max_pos = 0;
-  uint16_t max_val = 0;
-  uint8_t  start_pos;
-  uint8_t  stop_pos;
+  uint32_t max_pos = 0;
+  uint32_t max_val = 0;
+  uint32_t start_pos;
+  uint32_t stop_pos;
   uint32_t summ = 0;
   uint32_t summ2 = 0;
   uint32_t tmp_centroid = 0;
@@ -44,7 +43,7 @@ centroid_result_type find_centroid(void)
   proc_adc_laser_p = (uint16_t*)data_adc_laser_p;
   proc_adc_off_p   = (uint16_t*)data_adc_off_p;
 
-  for (i=0; i<CAPTURED_POINTS_CNT; i++)
+  for (int i=0; i<CAPTURED_POINTS_CNT; i++)
   {
     //Subtract one image from another
     if (proc_adc_laser_p[i] > proc_adc_off_p[i])
@@ -114,10 +113,10 @@ centroid_result_type find_centroid(void)
 #endif
 
     //Subpixel maximum calculation
-    for (i = start_pos; i < stop_pos; i++)
+    for (int i = start_pos; i < stop_pos; i++)
     {
-      summ = summ + i * proc_data[i];
-      summ2 = summ2 + proc_data[i];
+      summ  += i * proc_data[i];
+      summ2 += proc_data[i];
     }
 
     if (summ2 > 0)
