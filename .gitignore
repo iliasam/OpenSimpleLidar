@@ -31,3 +31,7 @@ Firmware/test2_capture_image/EWARM/settings/
 Firmware/test2_capture_image/StdPeriphLib/
 *.cspy.ps1
 *.xcl
+PCB/CommonPCB_v1.1M/Project/Project Logs for Lidar_PCB_Project/
+PCB/CommonPCB_v1.2/Project/Project Logs for Lidar_PCB_Project/
+PCB/CommonPCB_v1.2M/Project/Project Logs for Lidar_PCB_Project/
+PC_utility/LidarScanningTest/LidarScanningTest1/.vs/
