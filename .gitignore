@@ -1,6 +1,5 @@
 *.o
 *.cout
-*.s
 *.bat
 *.pbi
 *.out
