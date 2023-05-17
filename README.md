@@ -7,6 +7,7 @@ Its parameters:
 * Measured accuracy ~3-5 cm at 3 m (depends upon the color of reflecting surface).
 
 This device is really cheap - its components cost less than $30.  
+**UPD from 2023: Cost of the image sensor TSL1401CL increased very mush, so total price can be higher!**  
 See "TotalBOM" with price calculations.  
   
 Now I'm updating the documentation for this LIDAR.  
