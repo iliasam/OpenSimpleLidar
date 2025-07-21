@@ -10,8 +10,7 @@ This device is really cheap - its components cost less than $30.
 **UPD from 2023: Cost of the image sensor TSL1401CL increased very much, so total price can be higher!**  
 See "TotalBOM" with price calculations.  
   
-Now I'm updating the documentation for this LIDAR.  
-Some of it I'm writing to the project wiki: https://github.com/iliasam/OpenSimpleLidar/wiki  
+See project wiki for more info: https://github.com/iliasam/OpenSimpleLidar/wiki  
 
 [Please take the simple survey about assembling instructions](https://docs.google.com/forms/d/127PN3ydydF8poReQAPeC-vXDqIst-CIAj8u08tnh1lM)  
   
